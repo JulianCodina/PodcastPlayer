@@ -1,0 +1,127 @@
+.seccion {
+  padding: 20px 20px;
+}
+.encabezado {
+  display: flex;
+  align-items: center;
+  padding: 10px 0px;
+  width: 100%;
+}
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+  margin-right: 20px;
+}
+.texto {
+  display: flex;
+  flex-direction: column;
+}
+.texto p,
+.texto h2 {
+  margin: 0;
+  color: var(--text-color);
+}
+.img {
+  height: 2px;
+  width: 2px;
+}
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  margin-bottom: 10px;
+}
+.portadaPL {
+  width: 200px;
+  height: auto;
+  border-radius: 3px;
+}
+
+.portadaPLCircle {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.playlist h3,
+.playlist p {
+  text-align: center;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.canciones_container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 13px;
+  padding: 10px 0;
+  max-height: 250px;
+  width: 100%;
+  overflow-x: auto;
+  justify-content: space-between;
+}
+.cancion {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 20%;
+  height: 10%;
+}
+.portadaCA {
+  width: 50px;
+  height: 50px;
+  border-radius: 3px;
+}
+.cancion .texto {
+  justify-content: left;
+}
+.cancion h4,
+.cancion p {
+  color: var(--text-color);
+  margin: 0px 5px;
+}
+
+.scrollable_container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 10px 0;
+}
+.scrollable_container::-webkit-scrollbar {
+  height: 8px; /* Altura de la scrollbar horizontal */
+}
+.scrollable_container::-webkit-scrollbar-thumb {
+  background-color: var(--border-color); /* Color del thumb */
+  border-radius: 10px; /* Bordes redondeados para el thumb */
+}
+.scrollable_container::-webkit-scrollbar-track {
+  background-color: var(--secondary-color); /* Color del track */
+  border-radius: 20px; /* Bordes redondeados para el track */
+}
+.scrollable_container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--border-color); /* Cambio de color al desplazar */
+}
+
+.canciones_container::-webkit-scrollbar {
+  width: 8px; /* Altura de la scrollbar horizontal */
+}
+.canciones_container::-webkit-scrollbar-thumb {
+  background-color: var(--border-color); /* Color del thumb */
+  border-radius: 10px; /* Bordes redondeados para el thumb */
+}
+.canciones_container::-webkit-scrollbar-track {
+  background-color: var(--secondary-color); /* Color del track */
+  border-radius: 20px; /* Bordes redondeados para el track */
+}
+.canciones_container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--border-color); /* Cambio de color al desplazar */
+}
