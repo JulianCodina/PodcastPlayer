@@ -1,0 +1,71 @@
+aside {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+}
+aside .home-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.home-button img {
+  height: 25px;
+  width: auto;
+}
+.home-button p {
+  color: white;
+  font-size: 15px;
+  margin: 0;
+  cursor: pointer;
+}
+aside hr {
+  border: none; /* Quita el borde predeterminado */
+  height: 2px; /* Grosor de la línea */
+  background-color: #cccccc83; /* Color de la línea */
+  margin: 15px 0; /* Espacio alrededor de la línea */
+}
+aside .newplaylist {
+  color: white;
+  background-color: var(--secondary-color);
+  border: none;
+  padding: 15px 45px;
+  width: 90%;
+  margin: auto;
+  border-radius: 100px;
+  background-image: url("./src/assets/usuario.png");
+  background-repeat: no-repeat;
+  background-position: 15px center;
+  background-size: 20px 20px;
+  cursor: pointer;
+}
+aside ul {
+  list-style-type: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+aside ul img {
+  margin-left: -20px;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+aside ul li {
+  display: flex;
+  flex-direction: row;
+  margin: 0px 0 10px;
+}
+aside ul li div {
+  display: flex;
+  flex-direction: column;
+}
+aside ul p {
+  font-size: 11px;
+  margin: 0;
+  color: #ffffffc7;
+}
+aside ul h3 {
+  font-size: 15px;
+  margin: 0;
+}
