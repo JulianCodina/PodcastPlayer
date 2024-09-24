@@ -1,284 +1,70 @@
+import { useState } from "react";
 import "./App.css";
-import { SeccionBox } from "./components/Seccion";
-import { SeccionSongs } from "./components/Seccion";
-import { SeccionCircle } from "./components/Seccion";
+import Home from "./components/Home";
+import SideBar from "./components/SideBar";
+import PlaylistForm from "./components/PlaylistForm";
 
-const user = {
-  name: "Julian Codina",
-  img: "/src/assets/perfil.png",
-};
-type playlist = {
-  img: string;
-  texto1: string;
-  texto2: string;
-  songs?: string;
-};
-const arrayPL: playlist[] = [
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "PlayList Name 1",
-    texto2: "Artist Name",
-    songs: "20 songs",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "PlayList Name 2",
-    texto2: "Artist Name",
-    songs: "20 songs",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "PlayList Name 3",
-    texto2: "Artist Name",
-    songs: "20 songs",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "PlayList Name 4",
-    texto2: "Artist Name",
-    songs: "20 songs",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "PlayList Name 5",
-    texto2: "Artist Name",
-    songs: "20 songs",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "PlayList Name 6",
-    texto2: "Artist Name",
-    songs: "20 songs",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "PlayList Name 7",
-    texto2: "Artist Name",
-    songs: "20 songs",
-  },
-];
-const arrayALB: playlist[] = [
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "Listen Again",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "Listen Again",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "Listen Again",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "Listen Again",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "Listen Again",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "Listen Again",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "Listen Again",
-  },
-];
-const arrayART: playlist[] = [
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "4,53 suscribers",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "4,53 suscribers",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "4,53 suscribers",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "4,53 suscribers",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "4,53 suscribers",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "4,53 suscribers",
-  },
-  {
-    img: "/src/assets/portada.jpg",
-    texto1: "Listen Again",
-    texto2: "4,53 suscribers",
-  },
-];
-const arrayCAN: playlist[] = [
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-  {
-    img: "/src/assets/michael.jpeg",
-    texto1: "Nombre de cancion",
-    texto2: "Nombre de Artista",
-  },
-];
+export default function App() {
+  const [view, setView] = useState<"home" | "playlist">("home");
+  const [item, setItem] = useState({
+    title: "",
+    description: "",
+    imageUrl: "",
+  });
+  const [list, setList] = useState<
+    Array<{ title: string; description: string; imageUrl?: string }>
+  >([]);
 
-function App() {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
+    setItem({ ...item, [name]: value });
+  }
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setList([...list, item]);
+    setItem({ title: "", description: "", imageUrl: "" });
+  }
+
   return (
     <>
       <header>
-        <img className="logo" src="./src/assets/youtube-logo.png"></img>
-        <input className="buscador" type="text" placeholder="Search"></input>
-        <img className="share" src="./src/assets/tv.png"></img>
-        <img className="avatar" src="./src/assets/perfil.png"></img>
+        <img className="logo" src="./src/assets/youtube-logo.png" alt="logo" />
+        <input className="buscador" type="text" placeholder="Search" />
+        <img className="share" src="./src/assets/tv.png" alt="share" />
+        <img className="avatar" src="./src/assets/perfil.png" alt="avatar" />
       </header>
-
-      <main>
-        <SeccionBox
-          user={user}
-          texto1={user.name}
-          texto2="Listen Again"
-          arrayCard={arrayPL}
-        />
-        <SeccionSongs
-          user={user}
-          texto1="START RADIO FROM A SONG"
-          texto2="Quick picks"
-          arrayCard={arrayCAN}
-        />
-        <SeccionBox
-          user={user}
-          texto1=""
-          texto2="Recommended albums"
-          arrayCard={arrayALB}
-        />
-        <SeccionCircle
-          user={user}
-          texto1="SIMILAR TO"
-          texto2="A GENERIC ARTIST"
-          arrayCard={arrayART}
-        />
-      </main>
-
+      <div className="main-container">
+        <SideBar setView={setView} list={list} />
+        {view === "home" ? (
+          <Home />
+        ) : (
+          <PlaylistForm
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+          />
+        )}
+      </div>
       <footer className="reproductor">
-        <img className="botonesIzq" src="/src/assets/botonesizq.png" alt="" />
+        <img
+          className="botonesIzq"
+          src="/src/assets/botonesizq.png"
+          alt="left buttons"
+        />
         <div className="cancion">
-          <img src="/src/assets/michael.jpeg" alt="" />
+          <img src="/src/assets/michael.jpeg" alt="song" />
           <div className="text">
             <h4>Thiller</h4>
-            <p>Michael Jackson - 37K vies - 603 likes</p>
+            <p>Michael Jackson - 37K views - 603 likes</p>
           </div>
-          <img className="botonesMed" src="/src/assets/likes.png" alt="" />
+          <img className="botonesMed" src="/src/assets/likes.png" alt="likes" />
         </div>
-        <img className="botonesDer" src="/src/assets/botonesder.png" alt="" />
+        <img
+          className="botonesDer"
+          src="/src/assets/botonesder.png"
+          alt="right buttons"
+        />
       </footer>
     </>
   );
 }
-export default App;
