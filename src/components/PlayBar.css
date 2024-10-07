@@ -1,0 +1,183 @@
+.componente {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+.openButton {
+  display: flex;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  background-color: var(--secondary-color);
+  width: 45px;
+  height: 35px;
+  border-radius: 15px 15px 0 0;
+  padding-top: 8px;
+  align-items: start;
+  justify-content: center;
+  font-size: 25px;
+  color: white;
+  cursor: pointer;
+  opacity: 0.4;
+  margin-left: 10px;
+}
+footer {
+  padding: 10px 0 10px;
+  width: 100%;
+  background-color: var(--secondary-color);
+}
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer .botonesIzq,
+.footer .botonesDer {
+  margin: 0 40px; /* Ajusta el margen para los botones */
+  width: auto;
+  height: 25px;
+}
+
+.footer .botonesIzq img {
+  cursor: pointer;
+}
+
+.footer .cancion {
+  align-items: center;
+  display: flex;
+}
+
+.footer .cancion img {
+  width: auto;
+  height: 25px;
+}
+
+.footer .cancion .botonesMed {
+  margin-left: 10px;
+  width: auto;
+  height: 25px;
+}
+
+.footer .text h4,
+.footer .text p {
+  font-size: small;
+  margin: 0 10px;
+  color: var(--text-color);
+}
+
+/*********** Baseline, reset styles ***********/
+.time {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  margin: 0;
+}
+
+/* Removes default focus */
+.time:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+.time::-webkit-slider-runnable-track {
+  background-color: #3b3b3b;
+  border-radius: 0rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+.time::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: 0px; /* Centers thumb on the track */
+  background-color: #ff0000;
+  border-radius: 0rem;
+  height: 8px;
+  width: 13.5px;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+.time::-moz-range-track {
+  background-color: #3b3b3b;
+  border-radius: 0rem;
+  height: 0.5rem;
+}
+
+/* slider thumb */
+.time::-moz-range-thumb {
+  background-color: #ff0000;
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 0rem;
+  height: 8px;
+  width: 13.5px;
+}
+
+/*********** Baseline, reset styles ***********/
+.volume {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 6rem;
+}
+
+/* Removes default focus */
+.volume:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+.volume::-webkit-slider-runnable-track {
+  background-color: #a3a3a3;
+  border-radius: 4.5px;
+  height: 4px;
+}
+
+/* slider thumb */
+.volume::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -4px; /* Centers thumb on the track */
+  background-color: #808080;
+  border-radius: 12px;
+  height: 12px;
+  width: 12px;
+}
+
+.volume:focus::-webkit-slider-thumb {
+  outline: 3px solid #808080;
+  outline-offset: 0.125rem;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+.volume::-moz-range-track {
+  background-color: #a3a3a3;
+  border-radius: 4.5px;
+  height: 4px;
+}
+
+/* slider thumb */
+.volume::-moz-range-thumb {
+  background-color: #808080;
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 12px;
+  height: 12px;
+  width: 12px;
+}
+
+.volume:focus::-moz-range-thumb {
+  outline: 3px solid #808080;
+  outline-offset: 0.125rem;
+}

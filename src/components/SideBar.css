@@ -32,7 +32,7 @@ aside .newplaylist {
   width: 90%;
   margin: auto;
   border-radius: 100px;
-  background-image: url("./src/assets/usuario.png");
+  background-image: url("/assets/usuario.png");
   background-repeat: no-repeat;
   background-position: 15px center;
   background-size: 20px 20px;
