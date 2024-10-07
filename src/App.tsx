@@ -59,10 +59,10 @@ export default function App() {
       <audio ref={AudioRef} src={Audio?.urls.high_mp3 || ""} />
 
       <header>
-        <img className="logo" src="./src/assets/youtube-logo.png" alt="logo" />
+        <img className="logo" src="../assets/youtube-logo.png" alt="logo" />
         <input className="buscador" type="text" placeholder="Search" />
-        <img className="share" src="./src/assets/tv.png" alt="share" />
-        <img className="avatar" src="./src/assets/perfil.png" alt="avatar" />
+        <img className="share" src="../assets/tv.png" alt="share" />
+        <img className="avatar" src="../assets/perfil.png" alt="avatar" />
       </header>
       <div className="main-container">
         <SideBar setView={setView} list={list} />
@@ -79,7 +79,7 @@ export default function App() {
         <img
           onClick={() => setIsPlaying(!isPlaying)}
           className="botonesIzq"
-          src={isPlaying ? "./src/assets/pausa.png" : "./src/assets/play.png"}
+          src={isPlaying ? "../assets/pausa.png" : "../assets/play.png"}
           alt="play"
         />
         <div className="cancion">
@@ -94,7 +94,7 @@ export default function App() {
               </div>
               <img
                 className="botonesMed"
-                src="/src/assets/likes.png"
+                src="../assets/likes.png"
                 alt="likes"
               />
             </>
@@ -112,7 +112,7 @@ export default function App() {
           />
           <img
             className="botonesDer"
-            src="/src/assets/botonesder.png"
+            src="../assets/botonesder.png"
             alt="right buttons"
           />
         </div>
