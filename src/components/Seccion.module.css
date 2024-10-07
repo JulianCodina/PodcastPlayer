@@ -36,6 +36,7 @@
   width: 150px;
   height: auto;
   border-radius: 3px;
+  margin-bottom: 8px;
 }
 
 .portadaPLCircle {
@@ -50,6 +51,16 @@
   color: var(--text-color);
   margin: 0;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limita a 2 líneas */
+  -webkit-box-orient: vertical;
+  max-width: 150px; /* Ajusta el ancho según sea necesario */
+}
+.playlist p {
+  opacity: 0.6;
+  margin-top: 5px;
 }
 
 .canciones_container {
@@ -90,6 +101,7 @@
   overflow-x: auto;
   gap: 10px;
   padding: 10px 0;
+  align-items: baseline;
 }
 .scrollable_container::-webkit-scrollbar {
   height: 8px; /* Altura de la scrollbar horizontal */
