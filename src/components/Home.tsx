@@ -7,7 +7,7 @@ import { Dispatch } from "react";
 
 const user = {
   name: "Julian Codina",
-  img: "../assets/perfil.png",
+  img: "/assets/perfil.png",
 };
 
 type playlist = {
@@ -32,7 +32,7 @@ const createPlaylist = (
   audio,
 });
 
-const defaultImg = "../assets/portada.jpg";
+const defaultImg = "/assets/portada.jpg";
 
 const arrayALB: playlist[] = Array.from({ length: 7 }, () =>
   createPlaylist("", defaultImg, "Listen Again", "Listen Again")
@@ -45,7 +45,7 @@ const arrayART: playlist[] = Array.from({ length: 7 }, () =>
 const arrayCAN: playlist[] = Array.from({ length: 16 }, () =>
   createPlaylist(
     "",
-    "../assets/michael.jpeg",
+    "/assets/michael.jpeg",
     "Nombre de cancion",
     "Nombre de Artista"
   )
