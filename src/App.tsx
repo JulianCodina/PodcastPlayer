@@ -3,10 +3,9 @@ import "./App.css";
 import Home from "./components/Home";
 import SideBar from "./components/SideBar";
 import PlaylistForm from "./components/PlaylistForm";
+import PlayBar from "./components/PlayBar";
 
 export default function App() {
-  // TODO SOBRE EL FORMULARIO PARA GREGAR PLAYLIST
-
   const [view, setView] = useState<"home" | "playlist">("home");
   const [item, setItem] = useState({
     title: "",
@@ -21,6 +20,7 @@ export default function App() {
     const { name, value } = event.target;
     setItem({ ...item, [name]: value });
   }
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setList([...list, item]);
@@ -28,7 +28,6 @@ export default function App() {
   }
 
   //TODO SOBRE EL MANEJO DE AUDIOS
-
   const [isPlaying, setIsPlaying] = useState(false);
   const [Audio, setAudio] = useState<{
     urls: { high_mp3: string };
@@ -50,19 +49,15 @@ export default function App() {
     }
   }, [isPlaying, Audio, volume]);
 
-  function handleVolumeChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setVolume(Number(event.target.value)); // Actualiza el estado de volumen
-  }
-
   return (
     <>
       <audio ref={AudioRef} src={Audio?.urls.high_mp3 || ""} />
 
       <header>
-        <img className="logo" src="../assets/youtube-logo.png" alt="logo" />
+        <img className="logo" src="/assets/youtube-logo.png" alt="logo" />
         <input className="buscador" type="text" placeholder="Search" />
-        <img className="share" src="../assets/tv.png" alt="share" />
-        <img className="avatar" src="../assets/perfil.png" alt="avatar" />
+        <img className="share" src="/assets/tv.png" alt="share" />
+        <img className="avatar" src="/assets/perfil.jpg" alt="avatar" />
       </header>
       <div className="main-container">
         <SideBar setView={setView} list={list} />
@@ -75,48 +70,15 @@ export default function App() {
           />
         )}
       </div>
-      <footer className="reproductor">
-        <img
-          onClick={() => setIsPlaying(!isPlaying)}
-          className="botonesIzq"
-          src={isPlaying ? "../assets/pausa.png" : "../assets/play.png"}
-          alt="play"
-        />
-        <div className="cancion">
-          {Audio ? (
-            <>
-              <img src={Audio?.channel.urls.logo_image.original} alt="song" />
-              <div className="text">
-                <h4>
-                  {Audio?.title.slice(0, 60)}
-                  {Audio?.title.length > 60 ? "..." : ""}
-                </h4>
-              </div>
-              <img
-                className="botonesMed"
-                src="../assets/likes.png"
-                alt="likes"
-              />
-            </>
-          ) : null}
-        </div>
-        <div className="cancion">
-          <input
-            className="volumen"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={volume}
-            onChange={handleVolumeChange}
-          />
-          <img
-            className="botonesDer"
-            src="../assets/botonesder.png"
-            alt="right buttons"
-          />
-        </div>
-      </footer>
+
+      <PlayBar
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        volume={volume}
+        setVolume={setVolume}
+        audio={Audio}
+        audioRef={AudioRef} // Se pasa la referencia del audio
+      />
     </>
   );
 }

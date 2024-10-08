@@ -31,6 +31,7 @@
   justify-content: center;
   width: 200px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .portadaPL {
   width: 150px;
@@ -66,9 +67,9 @@
 .canciones_container {
   display: flex;
   flex-wrap: wrap;
-  gap: 13px;
+  gap: 15px;
   padding: 10px 0;
-  max-height: 250px;
+  max-height: 210px;
   width: 100%;
   overflow-x: auto;
   justify-content: space-around;
@@ -80,6 +81,7 @@
   align-items: center;
   width: 20%;
   height: 10%;
+  cursor: pointer;
 }
 .portadaCA {
   width: 40px;
@@ -93,6 +95,13 @@
 .cancion p {
   color: var(--text-color);
   margin: 0px 5px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limita a 2 líneas */
+  -webkit-box-orient: vertical;
+  max-width: 150px; /* Ajusta el ancho según sea necesario */
 }
 
 .scrollable_container {

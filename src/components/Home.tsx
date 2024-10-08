@@ -1,78 +1,39 @@
-import { SeccionBox } from "../components/Seccion";
-import { SeccionSongs } from "../components/Seccion";
-import { SeccionCircle } from "../components/Seccion";
-import "../components/Home.css";
+import { SeccionBox, SeccionSongs, SeccionCircle } from "../components/Seccion";
 import useFetchData from "./useFetchData";
-import { Dispatch } from "react";
 
-const user = {
-  name: "Julian Codina",
-  img: "/assets/perfil.png",
-};
-
-type playlist = {
-  audio: string;
-  img: string;
-  texto1: string;
-  texto2?: string;
-  songs?: string;
-};
-
-const createPlaylist = (
-  audio: string,
-  img: string,
-  texto1: string,
-  texto2?: string,
-  songs?: string
-): playlist => ({
-  img,
-  texto1,
-  texto2,
-  songs,
-  audio,
-});
-
-const defaultImg = "/assets/portada.jpg";
-
-const arrayALB: playlist[] = Array.from({ length: 7 }, () =>
-  createPlaylist("", defaultImg, "Listen Again", "Listen Again")
-);
-
-const arrayART: playlist[] = Array.from({ length: 7 }, () =>
-  createPlaylist("", defaultImg, "Listen Again", "4,53 suscribers")
-);
-
-const arrayCAN: playlist[] = Array.from({ length: 16 }, () =>
-  createPlaylist(
-    "",
-    "/assets/michael.jpeg",
-    "Nombre de cancion",
-    "Nombre de Artista"
-  )
-);
-
-type AudioType = {
-  urls: { high_mp3: string };
+type AudioInfo = {
+  id: number; // Asegúrate de incluir 'id'
+  urls: {
+    high_mp3: string;
+  };
   title: string;
   channel: {
     urls: {
-      logo_image: { original: string };
+      logo_image: {
+        original: string;
+      };
     };
   };
+  episode_number?: number;
 };
 
-type Props = {
-  setAudio: Dispatch<React.SetStateAction<AudioType | null>>;
-  setIsPlaying: Dispatch<React.SetStateAction<boolean>>;
+type HomeProps = {
+  setAudio: (audioInfo: AudioInfo) => void; // Asegúrate de que acepte AudioInfo
+  setIsPlaying: (isPlaying: boolean) => void;
 };
 
-export default function Home({ setAudio, setIsPlaying }: Props) {
+const user = {
+  name: "Julian Codina",
+  img: "/assets/perfil.jpg",
+};
+
+export default function Home({ setAudio, setIsPlaying }: HomeProps) {
   const API_URL = "https://api.audioboom.com/audio_clips";
   const { data, isLoading, error } = useFetchData(API_URL);
 
   const arrayPL = Array.isArray(data)
     ? data.map((dat) => ({
-        key: dat.id,
+        id: dat.id, // Incluye el id aquí
         audio: dat.urls.high_mp3,
         img: dat.channel.urls.logo_image.original,
         texto1: dat.title,
@@ -105,7 +66,7 @@ export default function Home({ setAudio, setIsPlaying }: Props) {
         user={user}
         texto1="START RADIO FROM A SONG"
         texto2="Quick picks"
-        arrayCard={arrayCAN}
+        arrayCard={arrayPL}
         setAudio={setAudio}
         setIsPlaying={setIsPlaying}
       />
@@ -113,7 +74,7 @@ export default function Home({ setAudio, setIsPlaying }: Props) {
         user={user}
         texto1=""
         texto2="Recommended albums"
-        arrayCard={arrayALB}
+        arrayCard={arrayPL}
         setAudio={setAudio}
         setIsPlaying={setIsPlaying}
       />
@@ -121,7 +82,7 @@ export default function Home({ setAudio, setIsPlaying }: Props) {
         user={user}
         texto1="SIMILAR TO"
         texto2="A GENERIC ARTIST"
-        arrayCard={arrayART}
+        arrayCard={arrayPL}
         setAudio={setAudio}
         setIsPlaying={setIsPlaying}
       />
