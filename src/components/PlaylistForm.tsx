@@ -19,15 +19,16 @@ export default function PlaylistForm({
           <input type="text" name="title" onChange={handleChange} required />
         </label>
         <label>
-          <p>Descripcion</p>
+          <p>Descripción</p>
           <input type="text" name="description" onChange={handleChange} />
         </label>
         <label>
           <p>URL de Imagen</p>
           <input type="text" name="imageUrl" onChange={handleChange} />
         </label>
-        <button type="submit">Agregar Playlist</button>
+        <button type="submit" className="accept">Agregar Playlist</button>
       </form>
+      <button className="cancel">Volver atrás</button>
     </div>
   );
 }

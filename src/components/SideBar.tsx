@@ -10,7 +10,7 @@ export default function SideBar({ setView, list }: SideBarProps) {
   return (
     <aside className="sidebar">
       <div className="home-button" onClick={() => setView("home")}>
-        <img src="/assets/usuario.png" />
+        <img src="/assets/home.png" />
         <p>Home</p>
       </div>
       <hr />

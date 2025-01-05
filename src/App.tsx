@@ -50,19 +50,25 @@ export default function App() {
   }, [isPlaying, Audio, volume]);
 
   return (
-    <>
+    <div className="page">
       <audio ref={AudioRef} src={Audio?.urls.high_mp3 || ""} />
 
       <header>
-        <img className="logo" src="/assets/youtube-logo.png" alt="logo" />
-        <input className="buscador" type="text" placeholder="Search" />
-        <img className="share" src="/assets/tv.png" alt="share" />
-        <img className="avatar" src="/assets/perfil.jpg" alt="avatar" />
+        <div className="absolute">
+          <img className="logo" src="/assets/logo.png" alt="logo" />
+          <div className="perfil">
+            <a href="">Perfil</a>
+            <img className="avatar" src="/assets/perfil.jpg" alt="avatar" />
+          </div>
+        </div>
       </header>
       <div className="main-container">
         <SideBar setView={setView} list={list} />
         {view === "home" ? (
-          <Home setAudio={setAudio} setIsPlaying={setIsPlaying} />
+          <>
+            <input className="buscador" type="text" placeholder="Search" />
+            <Home setAudio={setAudio} setIsPlaying={setIsPlaying} />
+          </>
         ) : (
           <PlaylistForm
             handleChange={handleChange}
@@ -70,7 +76,6 @@ export default function App() {
           />
         )}
       </div>
-
       <PlayBar
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
@@ -79,6 +84,6 @@ export default function App() {
         audio={Audio}
         audioRef={AudioRef} // Se pasa la referencia del audio
       />
-    </>
+    </div>
   );
 }

@@ -6,24 +6,22 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  margin-top: auto; /* Empuja el footer hacia abajo */
 }
 .openButton {
   display: flex;
-  position: sticky;
-  bottom: 0;
-  left: 0;
   background-color: var(--secondary-color);
-  width: 45px;
+  width: 35px;
   height: 35px;
-  border-radius: 15px 15px 0 0;
-  padding-top: 8px;
+  border-radius: 0px 15px 0 0;
+  padding: 4px 0 0px;
   align-items: start;
   justify-content: center;
-  font-size: 25px;
+  font-size: 20px;
   color: white;
   cursor: pointer;
   opacity: 0.4;
-  margin-left: 10px;
+  margin: -30px 0 0 0;
 }
 footer {
   padding: 10px 0 10px;
@@ -32,43 +30,70 @@ footer {
 }
 .footer {
   width: 100%;
+  min-height: 34px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.footer .botonesIzq,
-.footer .botonesDer {
-  margin: 0 40px; /* Ajusta el margen para los botones */
-  width: auto;
-  height: 25px;
-}
-
-.footer .botonesIzq img {
-  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .footer .cancion {
   align-items: center;
   display: flex;
+  margin: 0 20px;
+  width: 30%;
+  min-width: 220px;
+}
+.footer .botones {
+  flex: 1;
+  align-items: center;
+  display: flex;
+  gap: 10%;
+  justify-content: center;
+}
+.footer .playlistButton{
+  margin-top: 5px;
+  display: none;
+}
+.footer .play {
+  position: absolute; /* Esto lo saca del flujo normal y lo coloca en el centro */
+  left: 50%; /* Lo posiciona en el centro horizontal */
+  transform: translateX(-50%); /* Ajusta la posición para que esté exactamente centrado */
+  align-items: center;
+  display: flex;
+  flex: 0 1 auto;
+}
+.footer .volumen {
+  align-items: center;
+  display: flex;
+  margin-right: 20px;
+  flex: 0 1 auto;
+  position: absolute; /* Esto lo saca del flujo normal y lo coloca en el centro */
+  right: 5%; /* Lo posiciona en el centro horizontal */
 }
 
-.footer .cancion img {
-  width: auto;
-  height: 25px;
+.footer img {
+  cursor: pointer;
+  margin: 0px 10px;
+}
+.footer .botonPry {
+  width: 30px;
+  height: 30px;
+}
+.footer .botonMed {
+  width: 17px;
+  height: 17px;
 }
 
-.footer .cancion .botonesMed {
-  margin-left: 10px;
-  width: auto;
-  height: 25px;
-}
-
-.footer .text h4,
-.footer .text p {
+.footer .text h4 {
   font-size: small;
-  margin: 0 10px;
+  margin: 0px;
   color: var(--text-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* Limita el texto a 3 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;       /* Oculta el contenido que excede el número de líneas */
+  text-overflow: ellipsis; /* Añade puntos suspensivos (...) si el texto se corta */
 }
 
 /*********** Baseline, reset styles ***********/
@@ -100,23 +125,6 @@ footer {
   appearance: none;
   margin-top: 0px; /* Centers thumb on the track */
   background-color: #ff0000;
-  border-radius: 0rem;
-  height: 8px;
-  width: 13.5px;
-}
-
-/*********** Firefox styles ***********/
-/* slider track */
-.time::-moz-range-track {
-  background-color: #3b3b3b;
-  border-radius: 0rem;
-  height: 0.5rem;
-}
-
-/* slider thumb */
-.time::-moz-range-thumb {
-  background-color: #ff0000;
-  border: none; /*Removes extra border that FF applies*/
   border-radius: 0rem;
   height: 8px;
   width: 13.5px;
@@ -155,29 +163,40 @@ footer {
   width: 12px;
 }
 
-.volume:focus::-webkit-slider-thumb {
-  outline: 3px solid #808080;
-  outline-offset: 0.125rem;
+@media screen and (max-width: 600px) {
+  .footer{
+    flex-direction: column;
+  } 
+  .footer .cancion{
+    width: 85%;
+    margin-right: 0px;
+    justify-content: center;
+  }
+  .footer .botones{
+    justify-content: space-around;
+    margin: 20px 0 10px;
+    width: 90%;
+  }
+  .footer .playlistButton{
+    display: block;
+  }
+  .footer .play {
+    position: static;
+    align-items: center;
+    display: flex;
+    flex: 0 1 auto;
+    transform: none;
+    margin-left: 40px;
+  }
+  .footer .volumen {
+    margin-right: 0px;
+    position: static; 
+  }
+  .volume {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 4rem;
 }
-
-/*********** Firefox styles ***********/
-/* slider track */
-.volume::-moz-range-track {
-  background-color: #a3a3a3;
-  border-radius: 4.5px;
-  height: 4px;
-}
-
-/* slider thumb */
-.volume::-moz-range-thumb {
-  background-color: #808080;
-  border: none; /*Removes extra border that FF applies*/
-  border-radius: 12px;
-  height: 12px;
-  width: 12px;
-}
-
-.volume:focus::-moz-range-thumb {
-  outline: 3px solid #808080;
-  outline-offset: 0.125rem;
 }

@@ -1,1 +1,2 @@
-
+Podcast Player
+Este proyecto es un reproductor de podcasts desarrollado con React. Su objetivo es ofrecer una experiencia simple y funcional para explorar, reproducir y administrar tus podcasts favoritos.

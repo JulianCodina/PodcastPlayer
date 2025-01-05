@@ -1,14 +1,17 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Evita el desplazamiento horizontal */
-  min-height: 100hv; /* Asegura que el body ocupe al menos el alto de la ventana */
+  height: 100%;
+  flex-direction: column;
+}
+.page {
   display: flex;
   flex-direction: column;
+  min-height: 100vh; 
 }
 
 header {
-  padding: 10px 30px 10px 10px;
+  height: 70px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -17,53 +20,86 @@ header {
   justify-content: flex-start;
   background-color: var(--primary-color);
 }
-
-header .logo {
-  max-width: auto;
-  height: 40px;
-  padding: 0px 20px;
-}
-
-header input {
-  margin: 10px auto 0px 90px;
+header .absolute{
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
   padding: 10px;
-  font-size: 16px;
-  width: 30%;
+  box-sizing: border-box;
+}
+header .absolute .perfil{
+  display: flex;
+  align-items: center;
+}
+header .absolute .perfil a{
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+}
+header .logo {
+  width: 120px;
+  height: 50px;
+  padding: 0px 10px;
+  margin-left: 15px;
+}
+.buscador {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 15px 0 0 240px;
+  padding: 10px;
+  font-size: 15px;
+  width: 40vw;
+  height: 15px;
   border-radius: 7px;
   background-color: var(--secondary-color);
   border: 2px solid var(--border-color);
   color: var(--text-color);
+  outline: none; 
+  z-index: 1100;
 }
-
-.avatar {
-  margin-left: 15px;
-  width: 50px;
-  height: 50px;
+header .avatar {
+  margin: 0 30px 0 15px ;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  overflow: hidden;
   object-fit: cover;
 }
 
-.share {
-  width: 30px;
-  height: 30px;
-}
-
 .main-container {
+  width: 100%;
   display: flex;
-  flex: 1; /* Permite que el contenedor principal ocupe el espacio disponible */
-}
-
-.sidebar {
-  width: 250px; /* Ancho fijo para el sidebar */
-  padding: 20px;
   box-sizing: border-box;
 }
-
 main {
-  flex-grow: 1; /* El main ocupa el espacio restante */
-  padding: 20px;
+  margin-left: 200px;
+  padding: 5px 20px;
   box-sizing: border-box;
-  margin: 0 20px 0 230px;
-  width: 85%;
+  width: calc(100% - 200px);
+}
+
+@media screen and (max-width: 800px){
+  .buscador {
+    position: absolute;
+    left: 50%; /* Lo posiciona en el centro horizontal */
+    top: 0;
+    transform: translateX(-50%); /* Ajusta la posición para que esté exactamente centrado */
+    padding: 10px;
+    font-size: 13px;
+    height: 15px;
+    z-index: 900;
+    margin: 70px 0px;
+    width: calc(100% - 100px);
+  }
+  main{
+    padding: 25px 20px;
+  }
+  header .absolute .perfil a{
+    font-size: 15px;
+  }
 }
