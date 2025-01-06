@@ -30,7 +30,7 @@ function useFetchData(url: string) {
           throw new Error("Network response was not ok");
         }
         const result = await response.json();
-        setData(result.body.audio_clips); // Asegúrate de que esto coincida con la estructura de tu API
+        setData(result.body.audio_clips);
       } catch (err) {
         const error = err as Error; // Type assertion
         setError("Hubo un error: " + error.message);
