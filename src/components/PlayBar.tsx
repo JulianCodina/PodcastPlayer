@@ -90,10 +90,8 @@ const PlayBar = ({
         value={time}
         onChange={handleTimeChange} // Permitir adelantar y retroceder el audio
       />
-      {isOpen && (
-        <footer>
+        <footer  className={`playbar ${isOpen ? "open" : "closed"}`}>
           <div className="footer">
-            
             <div className="cancion">
               {audio ? (
                 <>
@@ -148,10 +146,8 @@ const PlayBar = ({
                 />
               </div>
             </div>
-
           </div>
         </footer>
-      )}
     </div>
   );
 };
