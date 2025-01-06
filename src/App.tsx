@@ -15,6 +15,8 @@ export default function App() {
   const [list, setList] = useState<
     Array<{ title: string; description: string; imageUrl?: string }>
   >([]);
+  const [isOpenAside, setIsOpenAside] = useState(false);
+
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -25,6 +27,7 @@ export default function App() {
     event.preventDefault();
     setList([...list, item]);
     setItem({ title: "", description: "", imageUrl: "" });
+    setView("home");
   }
 
   //TODO SOBRE EL MANEJO DE AUDIOS
@@ -49,6 +52,10 @@ export default function App() {
     }
   }, [isPlaying, Audio, volume]);
 
+useEffect(() => {
+  console.log(isOpenAside)
+} , [isOpenAside]);
+
   return (
     <div className="page">
       <audio ref={AudioRef} src={Audio?.urls.high_mp3 || ""} />
@@ -63,20 +70,23 @@ export default function App() {
         </div>
       </header>
       <div className="main-container">
-        <SideBar setView={setView} list={list} />
+        <SideBar setView={setView} list={list} isOpen={isOpenAside} setIsOpen={setIsOpenAside}/>
         {view === "home" ? (
           <>
             <input className="buscador" type="text" placeholder="Search" />
             <Home setAudio={setAudio} setIsPlaying={setIsPlaying} />
           </>
-        ) : (
+        ) : view === "playlist" ? (
           <PlaylistForm
+            setView={setView}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
           />
-        )}
+        ) : ( null)}
       </div>
       <PlayBar
+        isOpenAside={isOpenAside}
+        setIsOpenAside={setIsOpenAside}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
         volume={volume}

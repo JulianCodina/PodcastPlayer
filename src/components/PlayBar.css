@@ -196,6 +196,7 @@ footer {
     width: 85%;
     margin: 0px;
     justify-content: center;
+    height: 34px;
   }
   .footer .botones{
     justify-content: space-around;

@@ -1,10 +1,11 @@
-aside {
+.sidebar {
   display: flex;
   flex-direction: column;
   position: fixed;
   height: auto;
   padding: 20px;
   box-sizing: border-box;
+  width: 250px;
 }
 aside .home-button {
   display: flex;
@@ -12,15 +13,33 @@ aside .home-button {
   gap: 10px;
   margin-left: 20px;
 }
-.home-button img {
+aside .home-button img {
   height: 20px;
   width: 20px;
 }
-.home-button p {
+aside .home-button p {
   color: white;
   font-size: 15px;
   margin: 0;
   cursor: pointer;
+}
+aside .phoneView{
+  display: none;
+}
+aside .phoneView p{
+  color: white;
+  font-size: 20px;
+  margin: 0;
+  justify-content: center;
+  font-weight: 600;
+}
+aside .phoneView img{
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  opacity: 0.6;
 }
 aside hr {
   border: none; /* Quita el borde predeterminado */
@@ -47,10 +66,11 @@ aside ul {
   color: white;
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  width: 175px;
+  margin: 15px auto;
+  padding-left: 0;
 }
 aside ul img {
-  margin-left: -20px;
   height: 20px;
   width: 20px;
   margin-right: 10px;
@@ -59,6 +79,7 @@ aside ul li {
   display: flex;
   flex-direction: row;
   margin: 0px 0 10px;
+  align-items: center;
 }
 aside ul li div {
   display: flex;
@@ -68,15 +89,43 @@ aside ul p {
   font-size: 11px;
   margin: 0;
   color: #ffffffc7;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Número máximo de líneas */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Opcional: para agregar "..." al final del texto */
 }
 aside ul h3 {
   font-size: 15px;
   margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Número máximo de líneas */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Opcional: para agregar "..." al final del texto */
 }
 
 @media screen and (max-width: 800px) {
-  aside {
+  .sidebar.close {
     display: none;
+  }
+  .sidebar.open {
+    display: flex;
+    background: var(--primary-color);
+    border: 2px solid var(--secondary-color);
+    z-index: 800;
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%);
+    border-radius: 20px;
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.466);
+  }
+  aside .home-button {
+    display: none;
+  }
+  aside .phoneView {
+    display: flex;
   }
   main {
     margin: 0;

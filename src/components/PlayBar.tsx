@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import "./PlayBar.css";
 
 type PlayBarProps = {
@@ -12,6 +12,8 @@ type PlayBarProps = {
     channel: { urls: { logo_image: { original: string } } };
   } | null;
   audioRef: React.RefObject<HTMLAudioElement>;
+  isOpenAside: boolean;
+  setIsOpenAside: Dispatch<SetStateAction<boolean>>;
 };
 
 const PlayBar = ({
@@ -21,6 +23,8 @@ const PlayBar = ({
   setVolume,
   audio,
   audioRef,
+  isOpenAside,
+  setIsOpenAside,
 }: PlayBarProps) => {
   const [time, setTime] = useState(0); // Tiempo actual del audio
   const [duration, setDuration] = useState(0); // Duración total del audio
@@ -76,6 +80,16 @@ const PlayBar = ({
     setVolume(Number(event.target.value));
   };
 
+  const [temp, setTemp] = useState(volume);
+  const handleChangeVolumenState = () => {
+    if (volume > 0) {
+      setTemp(volume);
+      setVolume(0);
+    } else {
+      setVolume(temp);
+    }
+  }
+
   return (
     <div className="componente">
       <div className="openButton" onClick={() => setIsOpen(!isOpen)}>
@@ -116,13 +130,13 @@ const PlayBar = ({
             </div>
             <div className="botones">
               <div className="playlistButton">
-                <img src="assets/playlist.png" alt="playlist" className="botonMed"/>
+                <img src="assets/playlist.png" alt="playlist" className="botonPry" onClick={() => setIsOpenAside(!isOpenAside)}/>
               </div>
               <div className="play">
                 <img src="/assets/botonizq.png" alt="preview" className="botonMed" />
                 <img
                   className="botonPry"
-                  onClick={() => setIsPlaying(!isPlaying)}
+                  onClick={() => audio ? setIsPlaying(!isPlaying) : setIsPlaying(false)}
                   src={isPlaying ? "/assets/pausa.png" : "/assets/play.png"}
                   alt="play"
                 />
@@ -134,6 +148,7 @@ const PlayBar = ({
                   className="botonMed"
                   src={volume == 0 ? "/assets/noaudio.png" : "/assets/audio.png"}
                   alt="song"
+                  onClick={() => handleChangeVolumenState()}
                 />
                 <input
                   className="volume"

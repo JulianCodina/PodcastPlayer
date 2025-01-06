@@ -1,12 +1,14 @@
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction } from "react";
 import "./PlaylistForm.css";
 
 type PlaylistFormProps = {
+  setView: Dispatch<SetStateAction<"home" | "playlist">>;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
 export default function PlaylistForm({
+  setView,
   handleChange,
   handleSubmit,
 }: PlaylistFormProps) {
@@ -28,7 +30,7 @@ export default function PlaylistForm({
         </label>
         <button type="submit" className="accept">Agregar Playlist</button>
       </form>
-      <button className="cancel">Volver atrás</button>
+      <button className="cancel" onClick={() => setView("home")}>Volver atrás</button>
     </div>
   );
 }
