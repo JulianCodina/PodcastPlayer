@@ -73,7 +73,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     };
 
     tryPlayAudio();
-  }, [isPlaying]);
+  }, [audio, isPlaying]);
 
   useEffect(() => {
     if (!audioRef.current || !audio) return;
@@ -86,7 +86,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
         setIsPlaying(false);
       });
     }
-  }, [audio, volume]);
+  }, [audio, isPlaying, volume]);
 
   return (
     <AudioContext.Provider
