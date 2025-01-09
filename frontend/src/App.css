@@ -54,7 +54,6 @@ header .logout {
   margin-left: 15px;
   cursor: pointer;
 }
-
 .buscador {
   position: fixed;
   top: 0;
@@ -70,6 +69,22 @@ header .logout {
   color: var(--text-color);
   outline: none;
   z-index: 1100;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.buscador input {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: var(--text-color);
+  padding: 10px;
+}
+.buscador img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.3;
 }
 header .accept {
   padding: 7px;
@@ -97,9 +112,9 @@ header .cancel {
 }
 
 .main-container {
-  width: 100%;
   display: flex;
   box-sizing: border-box;
+  overflow: hidden;
 }
 main {
   margin-left: 250px;

@@ -6,18 +6,31 @@ type SideBarProps = {
   list: Array<{ title: string; description: string; imageUrl?: string }>;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setBusqueda: Dispatch<SetStateAction<string>>;
 };
 
-export default function SideBar({ setView, list, isOpen, setIsOpen }: SideBarProps) {
+export default function SideBar({
+  setView,
+  list,
+  isOpen,
+  setIsOpen,
+  setBusqueda,
+}: SideBarProps) {
   return (
     <aside className={`sidebar ${isOpen ? "open" : "close"}`}>
-      <div className="home-button" onClick={() => setView("home")}>
+      <div
+        className="home-button"
+        onClick={() => {
+          setView("home");
+          setBusqueda("");
+        }}
+      >
         <img src="/assets/home.png" />
         <p className="home-text">Home</p>
       </div>
       <div className="phoneView">
         <p>My Playlists</p>
-        <img src="assets/x.png" alt="X" onClick={() => setIsOpen(false)}/>
+        <img src="assets/x.png" alt="X" onClick={() => setIsOpen(false)} />
       </div>
       <hr />
       <input

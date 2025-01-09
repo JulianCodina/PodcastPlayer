@@ -36,6 +36,8 @@ export default function App() {
     setItem({ title: "", description: "", imageUrl: "" });
     setView("home");
   }
+  //TODO SOBRE LA BUSQUEDA
+  const [busqueda, setBusqueda] = useState("");
 
   return (
     <AudioProvider>
@@ -81,6 +83,7 @@ export default function App() {
           {isOpenLogin && <Login setIsOpen={setIsOpenLogin} />}
           {isOpenSignin && <Signin setIsOpen={setIsOpenSignin} />}
           <SideBar
+            setBusqueda={setBusqueda}
             setView={setView}
             list={list}
             isOpen={isOpenAside}
@@ -88,8 +91,16 @@ export default function App() {
           />
           {view === "home" ? (
             <>
-              <input className="buscador" type="text" placeholder="Search" />
-              <Home />
+              <div className="buscador">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={busqueda}
+                  onChange={(e) => setBusqueda(e.target.value)}
+                />
+                <img src="assets/busqueda.png" />
+              </div>
+              <Home busqueda={busqueda} />
             </>
           ) : view === "playlist" ? (
             <PlaylistForm

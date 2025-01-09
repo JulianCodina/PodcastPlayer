@@ -1,3 +1,63 @@
+.busqueda_container {
+  padding: 10px 20px 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.cancionBusqueda {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  gap: 15px;
+  height: 80px;
+}
+.portadaBusqueda {
+  width: 75px;
+  height: auto;
+  border-radius: 3px;
+}
+.textoBusqueda {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color);
+  justify-content: space-around;
+  height: 100%;
+  width: 70%;
+}
+.textoBusqueda p {
+  margin: 0;
+  opacity: 0.6;
+}
+.textoBusqueda h4 {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limita a 2 líneas */
+  -webkit-box-orient: vertical;
+}
+.busqueda_container .noFound {
+  display: flex;
+  flex-direction: column;
+  margin: 50px 25% 0 0;
+  align-items: center;
+}
+.busqueda_container .noFound img {
+  width: 150px;
+  height: 150px;
+  opacity: 0.7;
+}
+.busqueda_container .noFound h1,
+.busqueda_container .noFound p {
+  color: white;
+  text-align: center;
+}
+.busqueda_container .noFound p {
+  opacity: 0.6;
+  margin: 0;
+}
 .seccion {
   padding: 20px 20px;
 }
@@ -49,6 +109,7 @@
   width: 150px;
   height: auto;
   border-radius: 50%;
+  margin-bottom: 8px;
 }
 
 .playlist h3,
@@ -147,18 +208,52 @@
 .canciones_container::-webkit-scrollbar-thumb:hover {
   background-color: var(--border-color); /* Cambio de color al desplazar */
 }
-
+@media screen and (max-width: 800px) {
+  .busqueda_container .noFound {
+    margin: 50px auto;
+    align-items: center;
+  }
+  .busqueda_container .noFound h1 {
+    font-size: 25px;
+  }
+  .busqueda_container .noFound p {
+    font-size: 12px;
+  }
+}
 @media screen and (max-width: 600px) {
+  .busqueda_container {
+    padding: 20px 0px;
+  }
+  .cancionBusqueda {
+    height: 65px;
+  }
+  .portadaBusqueda {
+    width: 60px;
+  }
+  .textoBusqueda {
+    width: 95%;
+  }
+  .textoBusqueda p {
+    font-size: 12px;
+  }
+  .textoBusqueda h4 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita a 2 líneas */
+    -webkit-box-orient: vertical;
+    font-size: 12px;
+  }
   .playlist {
     width: 80px;
     margin-bottom: 10px;
   }
   .portadaPL {
-    width: 80px;
+    width: 60px;
     margin-bottom: 8px;
   }
   .portadaPLCircle {
-    width: 80px;
+    width: 60px;
   }
   .playlist h3,
   .playlist p {
@@ -170,18 +265,21 @@
   .texto h2 {
     font-size: 18px;
   }
+  .canciones_container {
+    gap: 15px 0;
+  }
   .cancion {
-    width: 30%;
+    width: 45%;
     height: 10%;
   }
   .portadaCA {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     border-radius: 3px;
   }
   .cancion h4,
   .cancion p {
-    font-size: 12px;
+    font-size: 10px;
     overflow: hidden;
   }
 }
