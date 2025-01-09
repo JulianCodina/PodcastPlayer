@@ -16,6 +16,7 @@
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "build": "npx vite build"
+    "build": "cd frontend && npm install && npm run build",
+    "start": "cd frontend && npm run start"
   }
 }
