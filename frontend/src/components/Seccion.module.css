@@ -7,10 +7,9 @@
   padding: 10px 0px;
   width: 100%;
 }
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.img {
+  width: 35px;
+  height: 35px;
   overflow: hidden;
   object-fit: cover;
   margin-right: 20px;
@@ -24,10 +23,10 @@
   margin: 0;
   color: var(--text-color);
 }
-.texto p{
+.texto p {
   font-size: 16px;
 }
-.texto h2{
+.texto h2 {
   font-size: 24px;
 }
 .playlist {
@@ -165,10 +164,10 @@
   .playlist p {
     font-size: 11px;
   }
-  .texto p{
+  .texto p {
     font-size: 13px;
   }
-  .texto h2{
+  .texto h2 {
     font-size: 18px;
   }
   .cancion {
