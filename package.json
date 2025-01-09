@@ -5,7 +5,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "vite": "^x.x.x"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
@@ -13,5 +14,8 @@
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
+  },
+  "scripts": {
+    "build": "npx vite build"
   }
 }
