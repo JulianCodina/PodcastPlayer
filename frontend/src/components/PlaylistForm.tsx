@@ -14,23 +14,27 @@ export default function PlaylistForm({
 }: PlaylistFormProps) {
   return (
     <div className="containerForm">
-      <h1>Crea tu playlist</h1>
+      <h1>Create your playlist</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          <p>Titulo</p>
+          <p>Tittle</p>
           <input type="text" name="title" onChange={handleChange} required />
         </label>
         <label>
-          <p>Descripción</p>
+          <p>Description</p>
           <input type="text" name="description" onChange={handleChange} />
         </label>
         <label>
-          <p>URL de Imagen</p>
+          <p>Image URL</p>
           <input type="text" name="imageUrl" onChange={handleChange} />
         </label>
-        <button type="submit" className="accept">Agregar Playlist</button>
+        <button type="submit" className="accept">
+          Agregar Playlist
+        </button>
       </form>
-      <button className="cancel" onClick={() => setView("home")}>Volver atrás</button>
+      <button className="cancel" onClick={() => setView("home")}>
+        Volver atrás
+      </button>
     </div>
   );
 }

@@ -62,14 +62,16 @@ footer {
   gap: 10%;
   justify-content: center;
 }
-.footer .playlistButton{
+.footer .playlistButton {
   margin-top: 5px;
   display: none;
 }
 .footer .play {
   position: absolute; /* Esto lo saca del flujo normal y lo coloca en el centro */
   left: 50%; /* Lo posiciona en el centro horizontal */
-  transform: translateX(-50%); /* Ajusta la posición para que esté exactamente centrado */
+  transform: translateX(
+    -50%
+  ); /* Ajusta la posición para que esté exactamente centrado */
   align-items: center;
   display: flex;
   flex: 0 1 auto;
@@ -101,9 +103,9 @@ footer {
   margin: 0px;
   color: var(--text-color);
   display: -webkit-box;
-  -webkit-line-clamp: 2;  /* Limita el texto a 3 líneas */
+  -webkit-line-clamp: 2; /* Limita el texto a 3 líneas */
   -webkit-box-orient: vertical;
-  overflow: hidden;       /* Oculta el contenido que excede el número de líneas */
+  overflow: hidden; /* Oculta el contenido que excede el número de líneas */
   text-overflow: ellipsis; /* Añade puntos suspensivos (...) si el texto se corta */
 }
 
@@ -187,23 +189,24 @@ footer {
   .componente .playbar.closed {
     height: 0; /* Altura mínima cuando está cerrada */
   }
-  .footer{
+  .footer {
     flex-direction: column;
     justify-content: space-between;
     height: 100px;
-  } 
-  .footer .cancion{
+  }
+  .footer .cancion {
     width: 85%;
     margin: 0px;
     justify-content: center;
     height: 34px;
   }
-  .footer .botones{
+  .footer .botones {
     justify-content: space-around;
     margin: auto 0 10px;
     width: 90%;
+    gap: 0;
   }
-  .footer .playlistButton{
+  .footer .playlistButton {
     display: block;
   }
   .footer .play {
@@ -216,7 +219,7 @@ footer {
   }
   .footer .volumen {
     margin-right: 0px;
-    position: static; 
+    position: static;
   }
   .volume {
     -webkit-appearance: none;
@@ -224,5 +227,5 @@ footer {
     background: transparent;
     cursor: pointer;
     width: 4rem;
-}
+  }
 }

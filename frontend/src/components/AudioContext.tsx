@@ -2,6 +2,7 @@ import { createContext, useState, ReactNode } from "react";
 
 // Tipo para el audio
 type AudioType = {
+  id: number;
   urls: { high_mp3: string };
   title: string;
   channel: {
