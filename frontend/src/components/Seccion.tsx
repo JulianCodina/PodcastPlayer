@@ -1,10 +1,6 @@
 import style from "./Seccion.module.css";
-
-type PropsEnc = {
-  img: string;
-  texto1: string;
-  texto2: string;
-};
+import { AudioContext } from "./AudioContext";
+import { useContext } from "react";
 
 type AudioInfo = {
   id: number; // Asegúrate de incluir 'id'
@@ -22,10 +18,16 @@ type AudioInfo = {
   episode_number?: number;
 };
 
+//ENCABEZADO
+type PropsEnc = {
+  img: string;
+  texto1: string;
+  texto2: string;
+};
 export function Encabezado({ img, texto1, texto2 }: PropsEnc) {
   return (
     <div className={style.encabezado}>
-      <img className={style.avatar} src={img} alt="User Foto" />
+      <img className={style.img} src={img} alt="Img" />
       <div className={style.texto}>
         <p>{texto1}</p>
         <h2>{texto2}</h2>
@@ -34,6 +36,7 @@ export function Encabezado({ img, texto1, texto2 }: PropsEnc) {
   );
 }
 
+//TARJETA TYPE
 type CardInfo = {
   id: number; // Asegúrate de incluir 'id' aquí
   audio: string;
@@ -43,32 +46,22 @@ type CardInfo = {
   songs?: string;
 };
 
-type SetAudioFunction = (audioInfo: AudioInfo) => void;
-
-type SetIsPlayingFunction = (isPlaying: boolean) => void;
-
-type Props = {
-  user: { img: string; name: string };
+//SECCIONES TYPE
+type SectionProp = {
+  img: string;
   texto1: string;
   texto2: string;
   arrayCard: CardInfo[];
-  setAudio: SetAudioFunction;
-  setIsPlaying: SetIsPlayingFunction;
 };
 
-export function Playlist({
-  playlist,
-  setAudio,
-  setIsPlaying,
-}: {
-  playlist: CardInfo;
-  setAudio: SetAudioFunction;
-  setIsPlaying: SetIsPlayingFunction;
-}) {
+//TARJETA
+export function Playlist({ playlist }: { playlist: CardInfo }) {
+  const { setAudio, setIsPlaying } = useContext(AudioContext);
+
   function PlayAudio() {
     setIsPlaying(true);
     const audioInfo: AudioInfo = {
-      id: playlist.id, // Incluye el id
+      id: playlist.id,
       urls: { high_mp3: playlist.audio },
       title: playlist.texto1,
       channel: {
@@ -89,19 +82,13 @@ export function Playlist({
   );
 }
 
-export function PlaylistCircle({
-  playlist,
-  setAudio,
-  setIsPlaying,
-}: {
-  playlist: CardInfo;
-  setAudio: SetAudioFunction;
-  setIsPlaying: SetIsPlayingFunction;
-}) {
+export function PlaylistCircle({ playlist }: { playlist: CardInfo }) {
+  const { setAudio, setIsPlaying } = useContext(AudioContext);
+
   function PlayAudio() {
     setIsPlaying(true);
     const audioInfo: AudioInfo = {
-      id: playlist.id, // Incluye el id
+      id: playlist.id,
       urls: { high_mp3: playlist.audio },
       title: playlist.texto1,
       channel: {
@@ -126,15 +113,9 @@ export function PlaylistCircle({
   );
 }
 
-export function Cancion({
-  cancion,
-  setAudio,
-  setIsPlaying,
-}: {
-  cancion: CardInfo;
-  setAudio: SetAudioFunction;
-  setIsPlaying: SetIsPlayingFunction;
-}) {
+export function Cancion({ cancion }: { cancion: CardInfo }) {
+  const { setAudio, setIsPlaying } = useContext(AudioContext);
+
   function PlayAudio() {
     setIsPlaying(true);
     const audioInfo: AudioInfo = {
@@ -160,75 +141,39 @@ export function Cancion({
   );
 }
 
-export function SeccionBox({
-  user,
-  texto1,
-  texto2,
-  arrayCard,
-  setAudio,
-  setIsPlaying,
-}: Props) {
+export function SeccionBox({ img, texto1, texto2, arrayCard }: SectionProp) {
   return (
     <div className={style.seccion}>
-      <Encabezado img={user.img} texto1={texto1} texto2={texto2} />
+      <Encabezado img={img} texto1={texto1} texto2={texto2} />
       <div className={style.scrollable_container}>
         {arrayCard.map((playlist, index) => (
-          <Playlist
-            key={index}
-            playlist={playlist}
-            setAudio={setAudio}
-            setIsPlaying={setIsPlaying}
-          />
+          <Playlist key={index} playlist={playlist} />
         ))}
       </div>
     </div>
   );
 }
 
-export function SeccionCircle({
-  user,
-  texto1,
-  texto2,
-  arrayCard,
-  setAudio,
-  setIsPlaying,
-}: Props) {
+export function SeccionCircle({ img, texto1, texto2, arrayCard }: SectionProp) {
   return (
     <div className={style.seccion}>
-      <Encabezado img={user.img} texto1={texto1} texto2={texto2} />
+      <Encabezado img={img} texto1={texto1} texto2={texto2} />
       <div className={style.scrollable_container}>
         {arrayCard.map((playlist, index) => (
-          <PlaylistCircle
-            key={index}
-            playlist={playlist}
-            setAudio={setAudio}
-            setIsPlaying={setIsPlaying}
-          />
+          <PlaylistCircle key={index} playlist={playlist} />
         ))}
       </div>
     </div>
   );
 }
 
-export function SeccionSongs({
-  user,
-  texto1,
-  texto2,
-  arrayCard,
-  setAudio,
-  setIsPlaying,
-}: Props) {
+export function SeccionSongs({ img, texto1, texto2, arrayCard }: SectionProp) {
   return (
     <div className={style.seccion}>
-      <Encabezado img={user.img} texto1={texto1} texto2={texto2} />
+      <Encabezado img={img} texto1={texto1} texto2={texto2} />
       <div className={style.canciones_container}>
         {arrayCard.map((cancion, index) => (
-          <Cancion
-            key={index}
-            cancion={cancion}
-            setAudio={setAudio}
-            setIsPlaying={setIsPlaying}
-          />
+          <Cancion key={index} cancion={cancion} />
         ))}
       </div>
     </div>

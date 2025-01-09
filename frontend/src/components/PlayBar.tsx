@@ -1,31 +1,22 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { AudioContext } from "./AudioContext";
 import "./PlayBar.css";
 
 type PlayBarProps = {
-  isPlaying: boolean;
-  setIsPlaying: (isPlaying: boolean) => void;
-  volume: number;
-  setVolume: (volume: number) => void;
-  audio: {
-    urls: { high_mp3: string };
-    title: string;
-    channel: { urls: { logo_image: { original: string } } };
-  } | null;
-  audioRef: React.RefObject<HTMLAudioElement>;
   isOpenAside: boolean;
   setIsOpenAside: Dispatch<SetStateAction<boolean>>;
 };
 
-const PlayBar = ({
-  isPlaying,
-  setIsPlaying,
-  volume,
-  setVolume,
-  audio,
-  audioRef,
-  isOpenAside,
-  setIsOpenAside,
-}: PlayBarProps) => {
+const PlayBar = ({ isOpenAside, setIsOpenAside }: PlayBarProps) => {
+  const { audio, isPlaying, setIsPlaying, volume, setVolume, audioRef } =
+    useContext(AudioContext);
+
   const [time, setTime] = useState(0); // Tiempo actual del audio
   const [duration, setDuration] = useState(0); // Duración total del audio
 
@@ -74,7 +65,7 @@ const PlayBar = ({
   };
 
   const handleGustaChange = () => {
-    setGusta(prevState => !prevState);
+    setGusta((prevState) => !prevState);
   };
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
@@ -88,7 +79,26 @@ const PlayBar = ({
     } else {
       setVolume(temp);
     }
-  }
+  };
+
+  const handlePlayPause = () => {
+    if (!audio) return;
+
+    try {
+      if (audioRef.current) {
+        if (!isPlaying) {
+          // Si vamos a reproducir
+          setIsPlaying(true);
+        } else {
+          // Si vamos a pausar
+          audioRef.current.pause();
+          setIsPlaying(false);
+        }
+      }
+    } catch (error) {
+      console.error("Error al reproducir/pausar:", error);
+    }
+  };
 
   return (
     <div className="componente">
@@ -104,65 +114,75 @@ const PlayBar = ({
         value={time}
         onChange={handleTimeChange} // Permitir adelantar y retroceder el audio
       />
-        <footer  className={`playbar ${isOpen ? "open" : "closed"}`}>
-          <div className="footer">
-            <div className="cancion">
-              {audio ? (
-                <>
-                  <img
-                    className="botonPry"
-                    src={audio.channel.urls.logo_image.original}
-                    alt="song"
-                  />
-                  <div className="text">
-                    <h4>
-                      {audio.title.slice(0, 60)}
-                      {audio.title.length > 60 ? "..." : ""}
-                    </h4>
-                  </div>
-                  <img className="botonMed"
-                    src= {gusta ? "/assets/gustaon.png" : "/assets/gustaoff.png"}
-                    alt="likes"
-                    onClick={() => handleGustaChange()}
-                    />
-                </>
-              ) : null}
-            </div>
-            <div className="botones">
-              <div className="playlistButton">
-                <img src="assets/playlist.png" alt="playlist" className="botonPry" onClick={() => setIsOpenAside(!isOpenAside)}/>
-              </div>
-              <div className="play">
-                <img src="/assets/botonizq.png" alt="preview" className="botonMed" />
+      <footer className={`playbar ${isOpen ? "open" : "closed"}`}>
+        <div className="footer">
+          <div className="cancion">
+            {audio ? (
+              <>
                 <img
                   className="botonPry"
-                  onClick={() => audio ? setIsPlaying(!isPlaying) : setIsPlaying(false)}
-                  src={isPlaying ? "/assets/pausa.png" : "/assets/play.png"}
-                  alt="play"
+                  src={audio.channel.urls.logo_image.original}
+                  alt="song"
                 />
-                <img src="/assets/botonder.png" alt="next" className="botonMed" />
-              </div>
-
-              <div className="volumen">
+                <div className="text">
+                  <h4>
+                    {audio.title.slice(0, 60)}
+                    {audio.title.length > 60 ? "..." : ""}
+                  </h4>
+                </div>
                 <img
                   className="botonMed"
-                  src={volume == 0 ? "/assets/noaudio.png" : "/assets/audio.png"}
-                  alt="song"
-                  onClick={() => handleChangeVolumenState()}
+                  src={gusta ? "/assets/gustaon.png" : "/assets/gustaoff.png"}
+                  alt="likes"
+                  onClick={() => handleGustaChange()}
                 />
-                <input
-                  className="volume"
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value={volume}
-                  onChange={handleVolumeChange}
-                />
-              </div>
+              </>
+            ) : null}
+          </div>
+          <div className="botones">
+            <div className="playlistButton">
+              <img
+                src="assets/playlist.png"
+                alt="playlist"
+                className="botonPry"
+                onClick={() => setIsOpenAside(!isOpenAside)}
+              />
+            </div>
+            <div className="play">
+              <img
+                src="/assets/botonizq.png"
+                alt="preview"
+                className="botonMed"
+              />
+              <img
+                className="botonPry"
+                onClick={handlePlayPause}
+                src={isPlaying ? "/assets/pausa.png" : "/assets/play.png"}
+                alt="play"
+              />
+              <img src="/assets/botonder.png" alt="next" className="botonMed" />
+            </div>
+
+            <div className="volumen">
+              <img
+                className="botonMed"
+                src={volume == 0 ? "/assets/noaudio.png" : "/assets/audio.png"}
+                alt="song"
+                onClick={() => handleChangeVolumenState()}
+              />
+              <input
+                className="volume"
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={volume}
+                onChange={handleVolumeChange}
+              />
             </div>
           </div>
-        </footer>
+        </div>
+      </footer>
     </div>
   );
 };

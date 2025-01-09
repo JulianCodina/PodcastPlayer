@@ -1,33 +1,11 @@
 import { SeccionBox, SeccionSongs, SeccionCircle } from "../components/Seccion";
 import useFetchData from "./useFetchData";
 
-type AudioInfo = {
-  id: number; // Asegúrate de incluir 'id'
-  urls: {
-    high_mp3: string;
-  };
-  title: string;
-  channel: {
-    urls: {
-      logo_image: {
-        original: string;
-      };
-    };
-  };
-  episode_number?: number;
-};
-
-type HomeProps = {
-  setAudio: (audioInfo: AudioInfo) => void; // Asegúrate de que acepte AudioInfo
-  setIsPlaying: (isPlaying: boolean) => void;
-};
-
 const user = {
   name: "Julian Codina",
-  img: "/assets/perfil.jpg",
 };
 
-export default function Home({ setAudio, setIsPlaying }: HomeProps) {
+export default function Home() {
   const API_URL = "https://api.audioboom.com/audio_clips";
   const { data, isLoading, error } = useFetchData(API_URL);
 
@@ -55,36 +33,28 @@ export default function Home({ setAudio, setIsPlaying }: HomeProps) {
   return (
     <main>
       <SeccionBox
-        user={user}
+        img="assets/repetir.png"
         texto1={user.name}
         texto2="Listen Again"
         arrayCard={arrayPL}
-        setAudio={setAudio}
-        setIsPlaying={setIsPlaying}
       />
       <SeccionSongs
-        user={user}
+        img="assets/radio.png"
         texto1="START RADIO FROM A SONG"
         texto2="Quick picks"
         arrayCard={arrayPL}
-        setAudio={setAudio}
-        setIsPlaying={setIsPlaying}
       />
       <SeccionBox
-        user={user}
+        img="assets/recomendacion.png"
         texto1=""
         texto2="Recommended albums"
         arrayCard={arrayPL}
-        setAudio={setAudio}
-        setIsPlaying={setIsPlaying}
       />
       <SeccionCircle
-        user={user}
+        img="assets/similar.png"
         texto1="SIMILAR TO"
         texto2="A GENERIC ARTIST"
         arrayCard={arrayPL}
-        setAudio={setAudio}
-        setIsPlaying={setIsPlaying}
       />
     </main>
   );
