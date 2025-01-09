@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { AudioProvider } from "./components/AudioContext";
 import Home from "./components/Home";
@@ -37,32 +37,9 @@ export default function App() {
     setView("home");
   }
 
-  //TODO SOBRE EL MANEJO DE AUDIOS
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [Audio, setAudio] = useState<{
-    urls: { high_mp3: string };
-    title: string;
-    channel: { urls: { logo_image: { original: string } } };
-  } | null>(null);
-  const [volume, setVolume] = useState(1);
-  const AudioRef = useRef<HTMLAudioElement | null>(null); // { current: audio }
-
-  useEffect(() => {
-    if (AudioRef.current) {
-      AudioRef.current.volume = volume; // Ajusta el volumen del audio
-      if (isPlaying) {
-        AudioRef.current.play();
-      } else {
-        AudioRef.current.pause();
-      }
-    }
-  }, [isPlaying, Audio, volume]);
-
   return (
     <AudioProvider>
       <div className="page">
-        <audio ref={AudioRef} src={Audio?.urls.high_mp3 || ""} />
-
         <header>
           <div className="absolute">
             <img className="logo" src="/assets/logo.png" alt="logo" />
@@ -112,7 +89,7 @@ export default function App() {
           {view === "home" ? (
             <>
               <input className="buscador" type="text" placeholder="Search" />
-              <Home setAudio={setAudio} setIsPlaying={setIsPlaying} />
+              <Home />
             </>
           ) : view === "playlist" ? (
             <PlaylistForm
@@ -122,16 +99,7 @@ export default function App() {
             />
           ) : null}
         </div>
-        <PlayBar
-          isOpenAside={isOpenAside}
-          setIsOpenAside={setIsOpenAside}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          volume={volume}
-          setVolume={setVolume}
-          audio={Audio}
-          audioRef={AudioRef} // Se pasa la referencia del audio
-        />
+        <PlayBar isOpenAside={isOpenAside} setIsOpenAside={setIsOpenAside} />
       </div>
     </AudioProvider>
   );

@@ -1,38 +1,107 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useRef, useEffect } from "react";
 
-// Tipo para el audio
-type AudioType = {
-  id: number;
-  urls: { high_mp3: string };
-  title: string;
-  channel: {
+interface AudioContextType {
+  audio: {
+    id: number;
     urls: {
-      logo_image: { original: string };
+      high_mp3: string;
     };
-  };
-};
-
-// Crear el contexto de audio
-export const AudioContext = createContext<{
-  audio: AudioType | null;
-  setAudio: (audio: AudioType | null) => void;
+    title: string;
+    channel: {
+      urls: {
+        logo_image: {
+          original: string;
+        };
+      };
+    };
+    episode_number?: number;
+  } | null;
   isPlaying: boolean;
+  setAudio: (audio: AudioContextType["audio"]) => void;
   setIsPlaying: (isPlaying: boolean) => void;
-}>({
+  volume: number;
+  setVolume: (volume: number) => void;
+  audioRef: React.RefObject<HTMLAudioElement>;
+}
+
+export const AudioContext = createContext<AudioContextType>({
   audio: null,
-  setAudio: () => {},
   isPlaying: false,
+  setAudio: () => {},
   setIsPlaying: () => {},
+  volume: 1,
+  setVolume: () => {},
+  audioRef: { current: null },
 });
 
-// Proveedor de audio
-export const AudioProvider = ({ children }: { children: ReactNode }) => {
-  const [audio, setAudio] = useState<AudioType | null>(null);
+export function AudioProvider({ children }: { children: ReactNode }) {
+  const [audio, setAudio] = useState<AudioContextType["audio"]>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    const tryPlayAudio = async () => {
+      if (!audioRef.current || !audio) return;
+
+      try {
+        if (isPlaying) {
+          const playPromise = audioRef.current.play();
+          if (playPromise !== undefined) {
+            await playPromise;
+          }
+        } else {
+          audioRef.current.pause();
+        }
+      } catch (error) {
+        console.error(
+          `Error playing audio (attempt ${retryCount + 1}):`,
+          error
+        );
+
+        if (retryCount < maxRetries) {
+          retryCount++;
+          setTimeout(tryPlayAudio, 1000);
+        } else {
+          console.error("Max retries reached, giving up");
+          setIsPlaying(false);
+        }
+      }
+    };
+
+    tryPlayAudio();
+  }, [isPlaying]);
+
+  useEffect(() => {
+    if (!audioRef.current || !audio) return;
+
+    audioRef.current.volume = volume;
+
+    if (isPlaying) {
+      audioRef.current.play().catch((error) => {
+        console.error("Error loading new audio:", error);
+        setIsPlaying(false);
+      });
+    }
+  }, [audio, volume]);
 
   return (
-    <AudioContext.Provider value={{ audio, setAudio, isPlaying, setIsPlaying }}>
+    <AudioContext.Provider
+      value={{
+        audio,
+        isPlaying,
+        setAudio,
+        setIsPlaying,
+        volume,
+        setVolume,
+        audioRef,
+      }}
+    >
+      <audio ref={audioRef} src={audio?.urls.high_mp3 || ""} />
       {children}
     </AudioContext.Provider>
   );
-};
+}
