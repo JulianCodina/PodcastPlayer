@@ -33,21 +33,23 @@ export const Login: React.FC<ModalProps> = ({ setIsOpen }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* username Field */}
         <div className="form-group">
-          <div className="inputLine">
-            <img src="assets/user.png" />
-            <input
-              id="usernameL"
-              type="text"
-              placeholder="Username"
-              className="input"
-              {...register("username", {
-                required: "The username is mandatory",
-                minLength: {
-                  value: 4,
-                  message: "The username must have at least 4 characters",
-                },
-              })}
-            />
+          <div className="par">
+            <div className="inputLine">
+              <img src="assets/user.png" />
+              <input
+                id="usernameL"
+                type="text"
+                placeholder="Username"
+                className="input"
+                {...register("username", {
+                  required: "* The username is mandatory",
+                  minLength: {
+                    value: 4,
+                    message: "* The username must have at least 4 characters",
+                  },
+                })}
+              />
+            </div>
             {errors.username && (
               <span className="error">{errors.username.message}</span>
             )}
@@ -56,21 +58,23 @@ export const Login: React.FC<ModalProps> = ({ setIsOpen }) => {
 
         {/* Password Field */}
         <div className="form-group">
-          <div className="inputLine">
-            <img src="assets/password.png" />
-            <input
-              id="passwordL"
-              type="password"
-              placeholder="Password"
-              className="input"
-              {...register("password", {
-                required: "The contraseña is mandatory",
-                minLength: {
-                  value: 6,
-                  message: "The password must have at least 6 characters",
-                },
-              })}
-            />
+          <div className="par">
+            <div className="inputLine">
+              <img src="assets/password.png" />
+              <input
+                id="passwordL"
+                type="password"
+                placeholder="Password"
+                className="input"
+                {...register("password", {
+                  required: "* The password is mandatory",
+                  minLength: {
+                    value: 6,
+                    message: "* The password must have at least 6 characters",
+                  },
+                })}
+              />
+            </div>
             {errors.password && (
               <span className="error">{errors.password.message}</span>
             )}
@@ -112,21 +116,23 @@ export const Signin: React.FC<ModalProps> = ({ setIsOpen }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* username Field */}
         <div className="form-group">
-          <div className="inputLine">
-            <img src="assets/user.png" />
-            <input
-              id="usernameR"
-              type="text"
-              placeholder="Username"
-              className="input"
-              {...register("username", {
-                required: "The username is mandatory",
-                minLength: {
-                  value: 4,
-                  message: "The username must have at least 4 characters",
-                },
-              })}
-            />
+          <div className="par">
+            <div className="inputLine">
+              <img src="assets/user.png" />
+              <input
+                id="usernameR"
+                type="text"
+                placeholder="Username"
+                className="input"
+                {...register("username", {
+                  required: "The username is mandatory",
+                  minLength: {
+                    value: 4,
+                    message: "The username must have at least 4 characters",
+                  },
+                })}
+              />
+            </div>
             {errors.username && (
               <span className="error">{errors.username.message}</span>
             )}
@@ -135,21 +141,23 @@ export const Signin: React.FC<ModalProps> = ({ setIsOpen }) => {
 
         {/* Password Field */}
         <div className="form-group">
-          <div className="inputLine">
-            <img src="assets/password.png" />
-            <input
-              id="passwordR"
-              type="password"
-              placeholder="Password"
-              className="input"
-              {...register("password", {
-                required: "The password is mandatory",
-                minLength: {
-                  value: 6,
-                  message: "The password must have at least 6 characters",
-                },
-              })}
-            />
+          <div className="par">
+            <div className="inputLine">
+              <img src="assets/password.png" />
+              <input
+                id="passwordR"
+                type="password"
+                placeholder="Password"
+                className="input"
+                {...register("password", {
+                  required: "The password is mandatory",
+                  minLength: {
+                    value: 6,
+                    message: "The password must have at least 6 characters",
+                  },
+                })}
+              />
+            </div>
             {errors.password && (
               <span className="error">{errors.password.message}</span>
             )}
@@ -157,23 +165,25 @@ export const Signin: React.FC<ModalProps> = ({ setIsOpen }) => {
         </div>
         {/* Password Field */}
         <div className="form-group">
-          <div className="inputLine">
-            <img src="assets/password.png" />
-            <input
-              id="confirmPassword"
-              type="password"
-              placeholder="Confirm Password"
-              className="input"
-              {...register("confirmPassword", {
-                required: "You must confirm your password",
-                minLength: {
-                  value: 6,
-                  message: "The password must have at least 6 characters",
-                },
-              })}
-            />
-            {errors.password && (
-              <span className="error">{errors.password.message}</span>
+          <div className="par">
+            <div className="inputLine">
+              <img src="assets/password.png" />
+              <input
+                id="confirmPassword"
+                type="password"
+                placeholder="Confirm Password"
+                className="input"
+                {...register("confirmPassword", {
+                  required: "You must confirm your password",
+                  minLength: {
+                    value: 6,
+                    message: "The password must have at least 6 characters",
+                  },
+                })}
+              />
+            </div>
+            {errors.confirmPassword && (
+              <span className="error">{errors.confirmPassword.message}</span>
             )}
           </div>
         </div>

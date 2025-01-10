@@ -1,6 +1,6 @@
 .componente {
   position: sticky;
-  bottom: 0;
+  bottom: -2px;
   left: 0;
   width: 100%;
   z-index: 1000;
@@ -108,7 +108,7 @@ footer {
   background: transparent;
   cursor: pointer;
   width: 100%;
-  margin: 0;
+  margin: 0 0 -1px 0;
 }
 
 /* Removes default focus */
