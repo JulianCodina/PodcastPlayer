@@ -68,8 +68,6 @@ export default function Home({ busqueda }: Props) {
     <main>
       {busqueda === "" ? (
         <>
-          <LoadingSection />
-          <LoadingSection />
           <SeccionBox
             img="assets/repetir.png"
             texto1={user.name}
