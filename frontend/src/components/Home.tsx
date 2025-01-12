@@ -7,14 +7,12 @@ import {
 } from "../components/Seccion";
 import useFetchData from "./useFetchData";
 
-const user = {
-  name: "Diego Martinez",
-};
 type Props = {
   busqueda: string;
+  user: string;
 };
 
-export default function Home({ busqueda }: Props) {
+export default function Home({ busqueda, user }: Props) {
   const API_URL = "https://api.audioboom.com/audio_clips";
   const { data, isLoading } = useFetchData(API_URL);
 
@@ -70,7 +68,7 @@ export default function Home({ busqueda }: Props) {
         <>
           <SeccionBox
             img="assets/repetir.png"
-            texto1={user.name}
+            texto1={user}
             texto2="Listen Again"
             arrayCard={arrayPL}
           />

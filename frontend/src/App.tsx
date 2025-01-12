@@ -14,7 +14,8 @@ export default function App() {
   //TODO SOBRE EL MANEJO DE LOGIN
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [isOpenSignin, setIsOpenSignin] = useState(false);
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState("");
 
   //TODO SOBRE EL MANEJO DE PLAYLISTS
   const [isOpenAside, setIsOpenAside] = useState(false);
@@ -38,8 +39,6 @@ export default function App() {
   }
   //TODO SOBRE LA BUSQUEDA
   const [busqueda, setBusqueda] = useState("");
-
-  const [user] = useState("Diego Martinez");
 
   return (
     <AudioProvider>
@@ -75,21 +74,38 @@ export default function App() {
                   className="logout"
                   src="/assets/logout.png"
                   alt="Log Out"
-                  onClick={() => setIsLogged(false)}
+                  onClick={() => {
+                    setIsLogged(false);
+                    setUser("");
+                  }}
                 />
               </div>
             )}
           </div>
         </header>
         <div className="main-container">
-          {isOpenLogin && <Login setIsOpen={setIsOpenLogin} />}
-          {isOpenSignin && <Signin setIsOpen={setIsOpenSignin} />}
+          {isOpenLogin && (
+            <Login
+              setIsOpen={setIsOpenLogin}
+              setUser={setUser}
+              setIsLogged={setIsLogged}
+            />
+          )}
+          {isOpenSignin && (
+            <Signin
+              setIsOpen={setIsOpenSignin}
+              setUser={setUser}
+              setIsLogged={setIsLogged}
+            />
+          )}
           <SideBar
             setBusqueda={setBusqueda}
             setView={setView}
             list={list}
             isOpen={isOpenAside}
             setIsOpen={setIsOpenAside}
+            isLogged={isLogged}
+            setIsOpenLogin={setIsOpenLogin}
           />
           {view === "home" ? (
             <>
@@ -102,7 +118,7 @@ export default function App() {
                 />
                 <img src="assets/busqueda.png" />
               </div>
-              <Home busqueda={busqueda} />
+              <Home busqueda={busqueda} user={user} />
             </>
           ) : view === "playlist" ? (
             <PlaylistForm

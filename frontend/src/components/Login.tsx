@@ -13,9 +13,15 @@ type SigninFormInputs = {
 };
 type ModalProps = {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  setUser: Dispatch<SetStateAction<string>>;
+  setIsLogged: Dispatch<SetStateAction<boolean>>;
 };
 
-export const Login: React.FC<ModalProps> = ({ setIsOpen }) => {
+export const Login: React.FC<ModalProps> = ({
+  setIsOpen,
+  setUser,
+  setIsLogged,
+}) => {
   const {
     register,
     handleSubmit,
@@ -23,7 +29,8 @@ export const Login: React.FC<ModalProps> = ({ setIsOpen }) => {
   } = useForm<LoginFormInputs>();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = (data) => {
-    console.log("Form Data:", data);
+    setUser(data.username);
+    setIsLogged(true);
     setIsOpen(false);
   };
 
@@ -98,7 +105,7 @@ export const Login: React.FC<ModalProps> = ({ setIsOpen }) => {
   );
 };
 
-export const Signin: React.FC<ModalProps> = ({ setIsOpen }) => {
+export const Signin: React.FC<ModalProps> = ({ setIsOpen, setUser }) => {
   const {
     register,
     handleSubmit,
@@ -106,7 +113,7 @@ export const Signin: React.FC<ModalProps> = ({ setIsOpen }) => {
   } = useForm<SigninFormInputs>();
 
   const onSubmit: SubmitHandler<SigninFormInputs> = (data) => {
-    console.log("Form Data:", data);
+    setUser(data.username);
     setIsOpen(false);
   };
 

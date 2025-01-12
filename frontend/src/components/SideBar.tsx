@@ -7,6 +7,8 @@ type SideBarProps = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   setBusqueda: Dispatch<SetStateAction<string>>;
+  isLogged: boolean;
+  setIsOpenLogin: Dispatch<SetStateAction<boolean>>;
 };
 
 export default function SideBar({
@@ -15,6 +17,8 @@ export default function SideBar({
   isOpen,
   setIsOpen,
   setBusqueda,
+  isLogged,
+  setIsOpenLogin,
 }: SideBarProps) {
   return (
     <aside className={`sidebar ${isOpen ? "open" : "close"}`}>
@@ -38,21 +42,29 @@ export default function SideBar({
         type="button"
         value="New Playlist"
         onClick={() => {
-          setView("playlist");
-          setIsOpen(false);
+          if (isLogged) {
+            setView("playlist");
+            setIsOpen(false);
+          } else {
+            setIsOpenLogin(true);
+          }
         }}
       />
       <div>
         <ul>
-          {list.map((item, index) => (
-            <li key={index}>
-              <img src={item.imageUrl ? item.imageUrl : "assets/nopic.png"} />
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
-            </li>
-          ))}
+          {isLogged
+            ? list.map((item, index) => (
+                <li key={index}>
+                  <img
+                    src={item.imageUrl ? item.imageUrl : "assets/nopic.png"}
+                  />
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                </li>
+              ))
+            : null}
         </ul>
       </div>
     </aside>
