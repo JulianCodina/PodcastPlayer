@@ -246,3 +246,27 @@ export function SeccionSearch({ busqueda, arrayCard }: BusquedaProp) {
     </div>
   );
 }
+
+//LOADING
+export function LoadingSection() {
+  return (
+    <div className={style.loading_container}>
+      <div className={style.loading_encabezado}>
+        <div className={`${style.loading_img} ${style.animation}`} />
+        <div className={style.loading_texto}>
+          <div className={`${style.loading_titulo} ${style.animation}`} />
+          <div className={`${style.loading_subtitulo} ${style.animation}`} />
+        </div>
+      </div>
+      <div className={style.loading_items_container}>
+        {[...Array(7)].map((_, index) => (
+          <div key={index} className={style.loading_item}>
+            <div className={`${style.loading_portada} ${style.animation}`} />
+            <div className={`${style.loading_text1} ${style.animation}`} />
+            <div className={`${style.loading_text2} ${style.animation}`} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -67,7 +67,7 @@
   padding: 10px 0px;
   width: 100%;
 }
-.img {
+.encabezado .img {
   width: 35px;
   height: 35px;
   overflow: hidden;
@@ -171,6 +171,82 @@
   max-width: 150px; /* Ajusta el ancho según sea necesario */
 }
 
+.loading_container {
+  padding: 20px 20px;
+  height: 320px;
+}
+.loading_encabezado {
+  display: flex;
+  align-items: center;
+  padding: 10px 0px;
+  width: 100%;
+}
+.loading_img {
+  width: 47px;
+  height: 47px;
+  margin-right: 20px;
+}
+.loading_titulo {
+  height: 17px;
+  width: 150px;
+  margin-bottom: 5px;
+}
+.loading_subtitulo {
+  height: 25px;
+  width: 200px;
+}
+.loading_items_container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+  gap: 10px;
+  padding: 10px 0;
+  align-items: baseline;
+}
+.loading_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  margin-bottom: 10px;
+}
+.loading_portada {
+  width: 150px;
+  height: 150px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+.loading_text1 {
+  width: 150px;
+  height: 25px;
+}
+.loading_text2 {
+  width: 100px;
+  height: 17px;
+  margin-top: 5px;
+  align-self: baseline;
+}
+.animation {
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading;
+  animation-timing-function: linear;
+  background: var(--secondary-color);
+  background: linear-gradient(to right, #222 8%, #333 18%, #222 33%);
+  background-size: 800px 104px;
+  border-radius: 3px;
+}
+@keyframes loading {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
 .scrollable_container {
   display: flex;
   flex-direction: row;
@@ -244,6 +320,11 @@
     -webkit-box-orient: vertical;
     font-size: 12px;
   }
+  .encabezado .img {
+    width: 25px;
+    height: 25px;
+    margin-right: 13px;
+  }
   .playlist {
     width: 80px;
     margin-bottom: 10px;
@@ -281,5 +362,35 @@
   .cancion p {
     font-size: 10px;
     overflow: hidden;
+  }
+  .loading_container {
+    height: 220px;
+  }
+  .loading_img {
+    width: 37px;
+    height: 37px;
+    margin-right: 13px;
+  }
+  .loading_titulo {
+    height: 15px;
+    width: 100px;
+    margin-bottom: 5px;
+  }
+  .loading_subtitulo {
+    height: 19px;
+    width: 150px;
+  }
+  .loading_portada {
+    width: 60px;
+    height: 60px;
+  }
+  .loading_text1 {
+    width: 100px;
+    height: 22px;
+  }
+  .loading_text2 {
+    width: 60px;
+    height: 13px;
+    margin-top: 3px;
   }
 }

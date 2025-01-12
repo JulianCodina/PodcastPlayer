@@ -39,6 +39,8 @@ export default function App() {
   //TODO SOBRE LA BUSQUEDA
   const [busqueda, setBusqueda] = useState("");
 
+  const [user] = useState("Diego Martinez");
+
   return (
     <AudioProvider>
       <div className="page">
@@ -68,7 +70,7 @@ export default function App() {
               </div>
             ) : (
               <div className="perfil">
-                <p>Usuario</p>
+                <p>{user}</p>
                 <img
                   className="logout"
                   src="/assets/logout.png"

@@ -17,7 +17,7 @@ export default function PlaylistForm({
       <h1>Create your playlist</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          <p>Tittle</p>
+          <p>Title</p>
           <input type="text" name="title" onChange={handleChange} required />
         </label>
         <label>
@@ -29,11 +29,11 @@ export default function PlaylistForm({
           <input type="text" name="imageUrl" onChange={handleChange} />
         </label>
         <button type="submit" className="accept">
-          Agregar Playlist
+          Add Playlist
         </button>
       </form>
       <button className="cancel" onClick={() => setView("home")}>
-        Volver atrás
+        Back
       </button>
     </div>
   );

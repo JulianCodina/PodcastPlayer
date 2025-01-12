@@ -3,11 +3,12 @@ import {
   SeccionSongs,
   SeccionCircle,
   SeccionSearch,
+  LoadingSection,
 } from "../components/Seccion";
 import useFetchData from "./useFetchData";
 
 const user = {
-  name: "Julian Codina",
+  name: "Diego Martinez",
 };
 type Props = {
   busqueda: string;
@@ -32,7 +33,8 @@ export default function Home({ busqueda }: Props) {
   if (isLoading) {
     return (
       <main>
-        <p>Cargando</p>
+        <LoadingSection />
+        <LoadingSection />
       </main>
     );
   }
@@ -56,7 +58,8 @@ export default function Home({ busqueda }: Props) {
   if (isLoading) {
     return (
       <main>
-        <p>Cargando</p>
+        <LoadingSection />
+        <LoadingSection />
       </main>
     );
   }
@@ -65,6 +68,8 @@ export default function Home({ busqueda }: Props) {
     <main>
       {busqueda === "" ? (
         <>
+          <LoadingSection />
+          <LoadingSection />
           <SeccionBox
             img="assets/repetir.png"
             texto1={user.name}

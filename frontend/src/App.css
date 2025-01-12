@@ -146,6 +146,8 @@ main {
   }
   header .absolute .perfil p {
     font-size: 13px;
+    width: 80px;
+    text-align: right;
   }
   header .avatar {
     width: 18px;
