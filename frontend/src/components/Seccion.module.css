@@ -15,7 +15,7 @@
 }
 .portadaBusqueda {
   width: 75px;
-  height: auto;
+  height: 75px;
   border-radius: 3px;
 }
 .textoBusqueda {
@@ -100,14 +100,14 @@
 }
 .portadaPL {
   width: 150px;
-  height: auto;
+  height: 150px;
   border-radius: 3px;
   margin-bottom: 8px;
 }
 
 .portadaPLCircle {
   width: 150px;
-  height: auto;
+  height: 150px;
   border-radius: 50%;
   margin-bottom: 8px;
 }
@@ -305,6 +305,7 @@
   }
   .portadaBusqueda {
     width: 60px;
+    height: 60px;
   }
   .textoBusqueda {
     width: 95%;
@@ -331,10 +332,12 @@
   }
   .portadaPL {
     width: 60px;
+    height: 60px;
     margin-bottom: 8px;
   }
   .portadaPLCircle {
     width: 60px;
+    height: 60px;
   }
   .playlist h3,
   .playlist p {
