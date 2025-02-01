@@ -5,17 +5,20 @@ import Home from "./components/Home";
 import SideBar from "./components/SideBar";
 import PlaylistForm from "./components/PlaylistForm";
 import PlayBar from "./components/PlayBar";
-import { Login, Signin } from "./components/Login";
+import { Login } from "./components/Login";
+import { useAuth } from './components/AuthContext';
+import Swal from "sweetalert2";
+
+type AuthMode = 'login' | 'register';
 
 export default function App() {
-  //TODO SOBRE EL MANEJO DE VISTA
-  const [view, setView] = useState<"home" | "playlist">("home");
-
   //TODO SOBRE EL MANEJO DE LOGIN
   const [isOpenLogin, setIsOpenLogin] = useState(false);
-  const [isOpenSignin, setIsOpenSignin] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState("");
+  const [inicialMode, setInicialMode] = useState<AuthMode>("login");
+  const { user, signOut, isLogged } = useAuth();
+
+  //TODO SOBRE EL MANEJO DE VISTA
+  const [view, setView] = useState<"home" | "playlist">("home");
 
   //TODO SOBRE EL MANEJO DE PLAYLISTS
   const [isOpenAside, setIsOpenAside] = useState(false);
@@ -41,95 +44,99 @@ export default function App() {
   const [busqueda, setBusqueda] = useState("");
 
   return (
-    <AudioProvider>
-      <div className="page">
-        <header>
-          <div className="absolute">
-            <img className="logo" src="/assets/logo.png" alt="logo" />
-            {!isLogged ? (
-              <div className="perfil">
-                <button
-                  className="accept"
-                  onClick={() => {
-                    setIsOpenLogin(true);
-                    setIsOpenSignin(false);
-                  }}
-                >
-                  Login
-                </button>
-                <button
-                  className="cancel"
-                  onClick={() => {
-                    setIsOpenLogin(false);
-                    setIsOpenSignin(true);
-                  }}
-                >
-                  Register
-                </button>
-              </div>
-            ) : (
-              <div className="perfil">
-                <p>{user}</p>
-                <img
-                  className="logout"
-                  src="/assets/logout.png"
-                  alt="Log Out"
-                  onClick={() => {
-                    setIsLogged(false);
-                    setUser("");
-                  }}
-                />
-              </div>
+      <AudioProvider>
+        <div className="page">
+          <header>
+            <div className="absolute">
+              <img className="logo" src="/assets/logo.png" alt="logo" />
+              {!isLogged ? (
+                <div className="perfil">
+                  <button
+                    className="accept"
+                    onClick={() => {
+                      setInicialMode("login")
+                      setIsOpenLogin(true);
+                    }}
+                  >
+                    Login
+                  </button>
+                  <button
+                    className="cancel"
+                    onClick={() => {
+                      setInicialMode("register")
+                      setIsOpenLogin(true);
+                    }}
+                  >
+                    Register
+                  </button>
+                </div>
+              ) : (
+                <div className="perfil">
+                  <p>{user && user?.email?.split('@')[0]}</p>
+                  <img
+                    className="logout"
+                    src="/assets/logout.png"
+                    alt="Log Out"
+                    onClick={() => {
+                      signOut()
+                      Swal.fire({
+                        icon: 'success',
+                        title: 'Good Bye!',
+                        text: 'See you soon!',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        background: '#1a1a1a', // Color de fondo oscuro
+                        color: '#ffffff', // Color del texto
+                        customClass: {
+                          popup: 'small-alert' // Clase personalizada
+                        },
+                        width: 250,
+                      });
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </header>
+          <div className="main-container">
+            {isOpenLogin && (
+              <Login
+                setIsOpen={setIsOpenLogin}
+                initialMode={inicialMode}
+              />
             )}
-          </div>
-        </header>
-        <div className="main-container">
-          {isOpenLogin && (
-            <Login
-              setIsOpen={setIsOpenLogin}
-              setUser={setUser}
-              setIsLogged={setIsLogged}
-            />
-          )}
-          {isOpenSignin && (
-            <Signin
-              setIsOpen={setIsOpenSignin}
-              setUser={setUser}
-              setIsLogged={setIsLogged}
-            />
-          )}
-          <SideBar
-            setBusqueda={setBusqueda}
-            setView={setView}
-            list={list}
-            isOpen={isOpenAside}
-            setIsOpen={setIsOpenAside}
-            isLogged={isLogged}
-            setIsOpenLogin={setIsOpenLogin}
-          />
-          {view === "home" ? (
-            <>
-              <div className="buscador">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={busqueda}
-                  onChange={(e) => setBusqueda(e.target.value)}
-                />
-                <img src="assets/busqueda.png" />
-              </div>
-              <Home busqueda={busqueda} user={user} />
-            </>
-          ) : view === "playlist" ? (
-            <PlaylistForm
+
+            <SideBar
+              setBusqueda={setBusqueda}
               setView={setView}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
+              list={list}
+              isOpen={isOpenAside}
+              setIsOpen={setIsOpenAside}
+              setIsOpenLogin={setIsOpenLogin}
             />
-          ) : null}
+            {view === "home" ? (
+              <>
+                <div className="buscador">
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    value={busqueda}
+                    onChange={(e) => setBusqueda(e.target.value)}
+                  />
+                  <img src="/assets/busqueda.png" alt="Search" />
+                </div>
+                <Home busqueda={busqueda} user={user?.email?.split('@')[0] ?? ""} />
+              </>
+            ) : view === "playlist" ? (
+              <PlaylistForm
+                setView={setView}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
+            ) : null}
+          </div>
+          <PlayBar isOpenAside={isOpenAside} setIsOpenAside={setIsOpenAside} />
         </div>
-        <PlayBar isOpenAside={isOpenAside} setIsOpenAside={setIsOpenAside} />
-      </div>
-    </AudioProvider>
+      </AudioProvider>
   );
 }

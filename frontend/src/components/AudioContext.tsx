@@ -41,51 +41,28 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    let retryCount = 0;
-    const maxRetries = 3;
+    if (!audioRef.current || !audio) return;
 
-    const tryPlayAudio = async () => {
-      if (!audioRef.current || !audio) return;
+    // Actualizar volumen
+    audioRef.current.volume = volume;
 
+    const handlePlayback = async () => {
       try {
         if (isPlaying) {
-          const playPromise = audioRef.current.play();
+          const playPromise = audioRef.current?.play();
           if (playPromise !== undefined) {
             await playPromise;
           }
         } else {
-          audioRef.current.pause();
+          audioRef.current?.pause();
         }
       } catch (error) {
-        console.error(
-          `Error playing audio (attempt ${retryCount + 1}):`,
-          error
-        );
-
-        if (retryCount < maxRetries) {
-          retryCount++;
-          setTimeout(tryPlayAudio, 1000);
-        } else {
-          console.error("Max retries reached, giving up");
-          setIsPlaying(false);
-        }
+        console.error("Error playing audio:", error);
+        setIsPlaying(false);
       }
     };
 
-    tryPlayAudio();
-  }, [audio, isPlaying]);
-
-  useEffect(() => {
-    if (!audioRef.current || !audio) return;
-
-    audioRef.current.volume = volume;
-
-    if (isPlaying) {
-      audioRef.current.play().catch((error) => {
-        console.error("Error loading new audio:", error);
-        setIsPlaying(false);
-      });
-    }
+    handlePlayback();
   }, [audio, isPlaying, volume]);
 
   return (
