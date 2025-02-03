@@ -16,36 +16,36 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isLogged, setIsLogged] = useState(!!user)
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
     // Check active sessions and sets the user
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      setIsLogged(!!session?.user);
       setLoading(false);
     });
 
     // Listen for changes on auth state
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      setIsLogged(!!session?.user);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
   const signIn = async (username: string, password: string) => {
-    // Generamos un email único basado en el username
     const email = `${username}@app.local`;
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    setIsLogged(true);
     if (error) throw error;
+    setIsLogged(true);
   };
 
   const signUp = async (username: string, password: string) => {
-    // Generamos un email único basado en el username
     const email = `${username}@app.local`;
     const { error } = await supabase.auth.signUp({
       email,
@@ -67,7 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, isLogged}}>
+    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, isLogged }}>
       {children}
     </AuthContext.Provider>
   );

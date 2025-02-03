@@ -97,6 +97,12 @@
   width: 200px;
   margin-bottom: 10px;
   cursor: pointer;
+  opacity: 0.9;
+}
+.playlist:hover, .cancion:hover {
+  opacity: 1;
+  background-color: #1f1f1f67;
+  border-radius: 10px;
 }
 .portadaPL {
   width: 150px;
@@ -149,6 +155,7 @@
   width: 20%;
   height: 10%;
   cursor: pointer;
+  opacity: 0.9;
 }
 .portadaCA {
   width: 40px;

@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext';
 
 type SideBarProps = {
   setView: Dispatch<SetStateAction<"home" | "playlist">>;
-  list: Array<{ title: string; description: string; imageUrl?: string }>;
+  list: Array<{ title: string; mp3Url: string; imageUrl?: string }>;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   setBusqueda: Dispatch<SetStateAction<string>>;
@@ -20,7 +20,7 @@ export default function SideBar({
   setIsOpenLogin,
 }: SideBarProps) {
 
-  const { user } = useAuth();
+  const { isLogged } = useAuth();
 
   return (
     <aside className={`sidebar ${isOpen ? "open" : "close"}`}>
@@ -44,7 +44,7 @@ export default function SideBar({
         type="button"
         value="New Playlist"
         onClick={() => {
-          if (user) {
+          if (isLogged) {
             setView("playlist");
             setIsOpen(false);
           } else {
@@ -54,7 +54,7 @@ export default function SideBar({
       />
       <div>
         <ul>
-          {user
+          {isLogged
             ? list.map((item, index) => (
                 <li key={index}>
                   <img
@@ -62,7 +62,6 @@ export default function SideBar({
                   />
                   <div>
                     <h3>{item.title}</h3>
-                    <p>{item.description}</p>
                   </div>
                 </li>
               ))

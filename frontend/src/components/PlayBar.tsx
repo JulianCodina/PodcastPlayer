@@ -7,14 +7,39 @@ import React, {
 } from "react";
 import { AudioContext } from "./AudioContext";
 import "./PlayBar.css";
+import { useAuth } from "./AuthContext";
+
+type AudioClip = {
+  urls: {
+    high_mp3: string;
+  };
+  id: number;
+  title: string;
+  channel: {
+    title: string;
+    urls: {
+      logo_image: {
+        original: string;
+      };
+    };
+  };
+  episode_number?: number;
+}
 
 type PlayBarProps = {
   isOpenAside: boolean;
   setIsOpenAside: Dispatch<SetStateAction<boolean>>;
+  setIsOpenLogin: Dispatch<SetStateAction<boolean>>;
+  data: AudioClip[];
+  list: Array<{ title: string; mp3Url: string; imageUrl?: string }>;
+  setList: Dispatch<SetStateAction<Array<{ title: string; mp3Url: string; imageUrl?: string }>>>;
 };
 
-const PlayBar = ({ isOpenAside, setIsOpenAside }: PlayBarProps) => {
-  const { audio, isPlaying, setIsPlaying, volume, setVolume, audioRef } =
+  const PlayBar = ({ isOpenAside, setIsOpenAside, setIsOpenLogin, data, list, setList }: PlayBarProps) => {
+
+  const { isLogged } = useAuth();
+
+  const { audio, setAudio, isPlaying, setIsPlaying, volume, setVolume, audioRef } =
     useContext(AudioContext);
 
   const [time, setTime] = useState(0); // Tiempo actual del audio
@@ -65,7 +90,18 @@ const PlayBar = ({ isOpenAside, setIsOpenAside }: PlayBarProps) => {
   };
 
   const handleGustaChange = () => {
-    setGusta((prevState) => !prevState);
+    if(isLogged){
+      setGusta(!gusta);
+      if (audio?.title && audio?.urls.high_mp3) {
+        setList([...list, { 
+          title: audio.title,
+          mp3Url: audio.urls.high_mp3,
+          imageUrl: audio?.channel.urls.logo_image.original 
+        }]);
+      }
+    }else{
+      setIsOpenLogin(true)
+    }
   };
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
@@ -100,6 +136,35 @@ const PlayBar = ({ isOpenAside, setIsOpenAside }: PlayBarProps) => {
     }
   };
 
+  const handleNext = () => {
+    if (!audio || !data) return; // Check if audio and data are defined
+    const currentIndex = data.findIndex(audioItem => audioItem.id === audio.id);
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < data.length) {
+      const nextAudio = data[nextIndex];
+      setAudio(nextAudio);
+      setIsPlaying(true);
+    }
+  }
+  const handleBefore = () => {
+    if (!audio || !data) return; // Check if audio and data are defined
+    const currentIndex = data.findIndex(audioItem => audioItem.id === audio.id);
+    const beforeIndex = currentIndex - 1;
+    if (beforeIndex >= 0) {
+      const nextAudio = data[beforeIndex];
+      setAudio(nextAudio);
+      setIsPlaying(true);
+    }
+  }
+
+  useEffect(() => {
+    setGusta(false)
+    if (audio?.urls?.high_mp3 && list) {
+      const exists = list.some(item => item.mp3Url === audio.urls.high_mp3);
+      setGusta(exists);
+    }
+  }, [audio, list, isLogged]);
+
   return (
     <div className="componente">
       <div className="openButton" onClick={() => setIsOpen(!isOpen)}>
@@ -119,8 +184,14 @@ const PlayBar = ({ isOpenAside, setIsOpenAside }: PlayBarProps) => {
           <div className="cancion">
             {audio ? (
               <>
+              <img
+                  className="botonMed"
+                  src={gusta ? "/assets/gustaon.png" : "/assets/gustaoff.png"}
+                  alt="likes"
+                  onClick={() => handleGustaChange()}
+                />
                 <img
-                  className="botonPry"
+                  className="Portada"
                   src={audio.channel.urls.logo_image.original}
                   alt="song"
                 />
@@ -130,12 +201,6 @@ const PlayBar = ({ isOpenAside, setIsOpenAside }: PlayBarProps) => {
                     {audio.title.length > 60 ? "..." : ""}
                   </h4>
                 </div>
-                <img
-                  className="botonMed"
-                  src={gusta ? "/assets/gustaon.png" : "/assets/gustaoff.png"}
-                  alt="likes"
-                  onClick={() => handleGustaChange()}
-                />
               </>
             ) : null}
           </div>
@@ -153,6 +218,7 @@ const PlayBar = ({ isOpenAside, setIsOpenAside }: PlayBarProps) => {
                 src="/assets/botonizq.png"
                 alt="preview"
                 className="botonMed"
+                onClick={() => handleBefore()}
               />
               <img
                 className="botonPry"
@@ -160,7 +226,7 @@ const PlayBar = ({ isOpenAside, setIsOpenAside }: PlayBarProps) => {
                 src={isPlaying ? "/assets/pausa.png" : "/assets/play.png"}
                 alt="play"
               />
-              <img src="/assets/botonder.png" alt="next" className="botonMed" />
+              <img src="/assets/botonder.png" alt="next" className="botonMed" onClick={() => handleNext()} />
             </div>
 
             <div className="volumen">

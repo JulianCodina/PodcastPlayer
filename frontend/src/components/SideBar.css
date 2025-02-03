@@ -13,6 +13,10 @@ aside .home-button {
   gap: 10px;
   margin: 0 auto 0 20px;
   cursor: pointer;
+  opacity: 0.6;
+}
+aside .home-button:hover {
+  opacity: 1;
 }
 aside .home-button img {
   height: 20px;
@@ -61,6 +65,9 @@ aside .newplaylist {
   background-size: 20px 20px;
   cursor: pointer;
 }
+aside .newplaylist:hover{
+  background-color:#333333;
+}
 aside ul {
   list-style-type: none;
   color: white;
@@ -71,15 +78,17 @@ aside ul {
   padding-left: 0;
 }
 aside ul img {
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
   margin-right: 10px;
+  border-radius: 5px;
 }
 aside ul li {
   display: flex;
   flex-direction: row;
   margin: 0px 0 10px;
   align-items: center;
+  cursor: pointer;
 }
 aside ul li div {
   display: flex;
@@ -96,13 +105,18 @@ aside ul p {
   text-overflow: ellipsis; /* Opcional: para agregar "..." al final del texto */
 }
 aside ul h3 {
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: normal;
   margin: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; /* Número máximo de líneas */
   overflow: hidden;
   text-overflow: ellipsis; /* Opcional: para agregar "..." al final del texto */
+  opacity: 0.7;
+}
+aside ul h3:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 800px) {

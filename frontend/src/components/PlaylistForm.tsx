@@ -21,10 +21,6 @@ export default function PlaylistForm({
           <input type="text" name="title" onChange={handleChange} required />
         </label>
         <label>
-          <p>Description</p>
-          <input type="text" name="description" onChange={handleChange} />
-        </label>
-        <label>
           <p>Image URL</p>
           <input type="text" name="imageUrl" onChange={handleChange} />
         </label>

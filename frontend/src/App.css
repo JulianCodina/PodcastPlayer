@@ -53,7 +53,36 @@ header .logout {
   height: 25px;
   margin-left: 15px;
   cursor: pointer;
+  opacity: 0.6;
 }
+header .logout:hover {
+  opacity: 1;
+}
+
+.loadingLogin {
+  width: 168px;
+  height: 31px;
+}
+.animation {
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loading;
+  animation-timing-function: linear;
+  background: var(--secondary-color);
+  background: linear-gradient(to right, #222 8%, #333 18%, #222 33%);
+  background-size: 800px 104px;
+  border-radius: 3px;
+}
+@keyframes loading {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
 .buscador {
   position: fixed;
   top: 0;
@@ -72,6 +101,9 @@ header .logout {
   align-items: center;
   display: flex;
   justify-content: space-between;
+}
+.buscador:hover{
+  background-color:#333333;
 }
 .buscador input {
   background: none;
@@ -109,6 +141,12 @@ header .cancel {
   opacity: 0.5;
   width: 75px;
   margin-left: 15px;
+}
+header .accept:hover {
+  background-color: #333333;
+}
+header .cancel:hover {
+  background-color: #ffffff13;
 }
 
 .main-container {

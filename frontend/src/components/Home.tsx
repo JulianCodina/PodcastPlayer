@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useEffect } from "react";
 import {
   SeccionBox,
   SeccionSongs,
@@ -7,14 +8,38 @@ import {
 } from "../components/Seccion";
 import useFetchData from "./useFetchData";
 
+type AudioClip = {
+  urls: {
+    high_mp3: string;
+  };
+  id: number;
+  title: string;
+  channel: {
+    title: string;
+    urls: {
+      logo_image: {
+        original: string;
+      };
+    };
+  };
+  episode_number?: number;
+}
+
 type Props = {
   busqueda: string;
   user: string;
+  setData: Dispatch<SetStateAction<Array<AudioClip>>>;
 };
 
-export default function Home({ busqueda, user }: Props) {
+export default function Home({ busqueda, user, setData }: Props) {
   const API_URL = "https://api.audioboom.com/audio_clips";
   const { data, isLoading } = useFetchData(API_URL);
+
+  useEffect(() => {
+    if (data) {
+      setData(data);
+    }
+  }, [data, setData]);
 
   const arrayPL = Array.isArray(data)
     ? data.map((dat) => ({

@@ -9,13 +9,30 @@ import { Login } from "./components/Login";
 import { useAuth } from './components/AuthContext';
 import Swal from "sweetalert2";
 
+type AudioClip = {
+  urls: {
+    high_mp3: string;
+  };
+  id: number;
+  title: string;
+  channel: {
+    title: string;
+    urls: {
+      logo_image: {
+        original: string;
+      };
+    };
+  };
+  episode_number?: number;
+}
+
 type AuthMode = 'login' | 'register';
 
 export default function App() {
   //TODO SOBRE EL MANEJO DE LOGIN
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [inicialMode, setInicialMode] = useState<AuthMode>("login");
-  const { user, signOut, isLogged } = useAuth();
+  const { user, signOut, isLogged, loading } = useAuth();
 
   //TODO SOBRE EL MANEJO DE VISTA
   const [view, setView] = useState<"home" | "playlist">("home");
@@ -24,11 +41,11 @@ export default function App() {
   const [isOpenAside, setIsOpenAside] = useState(false);
   const [item, setItem] = useState({
     title: "",
-    description: "",
+    mp3Url: "",
     imageUrl: "",
   });
   const [list, setList] = useState<
-    Array<{ title: string; description: string; imageUrl?: string }>
+    Array<{ title: string; mp3Url: string; imageUrl?: string }>
   >([]);
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
@@ -37,23 +54,29 @@ export default function App() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setList([...list, item]);
-    setItem({ title: "", description: "", imageUrl: "" });
+    setItem({ title: "", mp3Url: "", imageUrl: "" });
     setView("home");
   }
   //TODO SOBRE LA BUSQUEDA
   const [busqueda, setBusqueda] = useState("");
 
+  //TODO SOBRE LA CARGA DE LA API
+  const [data, setData] = useState<AudioClip[]>([]);
+  
   return (
       <AudioProvider>
         <div className="page">
           <header>
             <div className="absolute">
               <img className="logo" src="/assets/logo.png" alt="logo" />
-              {!isLogged ? (
-                <div className="perfil">
-                  <button
-                    className="accept"
-                    onClick={() => {
+              {loading ? (
+                <div className="loadingLogin animation"/>
+                ) : (
+                !isLogged ? (
+                  <div className="perfil">
+                    <button
+                      className="accept"
+                      onClick={() => {
                       setInicialMode("login")
                       setIsOpenLogin(true);
                     }}
@@ -95,7 +118,7 @@ export default function App() {
                     }}
                   />
                 </div>
-              )}
+              ))}
             </div>
           </header>
           <div className="main-container">
@@ -125,7 +148,7 @@ export default function App() {
                   />
                   <img src="/assets/busqueda.png" alt="Search" />
                 </div>
-                <Home busqueda={busqueda} user={user?.email?.split('@')[0] ?? ""} />
+                <Home busqueda={busqueda} user={user?.email?.split('@')[0] ?? ""} setData={setData} />
               </>
             ) : view === "playlist" ? (
               <PlaylistForm
@@ -135,7 +158,7 @@ export default function App() {
               />
             ) : null}
           </div>
-          <PlayBar isOpenAside={isOpenAside} setIsOpenAside={setIsOpenAside} />
+          <PlayBar isOpenAside={isOpenAside} setIsOpenAside={setIsOpenAside} setIsOpenLogin={setIsOpenLogin} data={data} list={list} setList={setList} />
         </div>
       </AudioProvider>
   );
