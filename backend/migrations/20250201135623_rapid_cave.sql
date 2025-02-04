@@ -1,32 +1,41 @@
 /*
-  # Create user profiles and songs tables
+  # Create user profiles and audios tables
 
   1. New Tables
     - `profiles`
       - `id` (uuid, primary key, references auth.users)
       - `username` (text, unique)
       - `created_at` (timestamp)
-      - `updated_at` (timestamp)
-    - `liked_songs`
-      - `id` (uuid, primary key)
-      - `user_id` (uuid, references profiles)
-      - `song_name` (text)
-      - `created_at` (timestamp)
-
-  2. Security
-    - Enable RLS on both tables
-    - Add policies for authenticated users to:
-      - Read their own profile
-      - Update their own profile
-      - Read and manage their liked songs
+    - `audios`
+      - `id` (int8, primary key, unique)
+      - `title` (text)
+      - `URLmp3` (text)
+      - `URLimg` (text)
+    - `profiles_audios`
+      - `pid` (int8, foreign key references profiles)
+      - `aid` (int8, foreign key references audios)
 */
 
 -- Create profiles table
 CREATE TABLE IF NOT EXISTS profiles (
   id uuid PRIMARY KEY REFERENCES auth.users ON DELETE CASCADE,
   username text UNIQUE NOT NULL,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now()
+  created_at timestamptz DEFAULT now()
+);
+
+-- Create audios table
+CREATE TABLE IF NOT EXISTS audios (
+  id int8 PRIMARY KEY,
+  title text NOT NULL,
+  URLmp3 text NOT NULL,
+  URLimg text NOT NULL
+);
+
+-- Create profiles_audios table
+CREATE TABLE IF NOT EXISTS profiles_audios (
+  pid int8 REFERENCES profiles(id),
+  aid int8 REFERENCES audios(id),
+  PRIMARY KEY (pid, aid)
 );
 
 -- Enable RLS
@@ -44,25 +53,6 @@ CREATE POLICY "Users can update own profile"
   FOR UPDATE
   TO authenticated
   USING (auth.uid() = id);
-
--- Liked songs policies
-CREATE POLICY "Users can view own liked songs"
-  ON liked_songs
-  FOR SELECT
-  TO authenticated
-  USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can insert own liked songs"
-  ON liked_songs
-  FOR INSERT
-  TO authenticated
-  WITH CHECK (auth.uid() = user_id);
-
-CREATE POLICY "Users can delete own liked songs"
-  ON liked_songs
-  FOR DELETE
-  TO authenticated
-  USING (auth.uid() = user_id);
 
 -- Function to handle profile creation
 CREATE OR REPLACE FUNCTION handle_new_user()
