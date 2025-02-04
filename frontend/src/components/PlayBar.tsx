@@ -31,14 +31,11 @@ type PlayBarProps = {
   setIsOpenAside: Dispatch<SetStateAction<boolean>>;
   setIsOpenLogin: Dispatch<SetStateAction<boolean>>;
   data: AudioClip[];
-  list: Array<{ title: string; mp3Url: string; imageUrl?: string }>;
-  setList: Dispatch<SetStateAction<Array<{ title: string; mp3Url: string; imageUrl?: string }>>>;
-};
+}
 
-  const PlayBar = ({ isOpenAside, setIsOpenAside, setIsOpenLogin, data, list, setList }: PlayBarProps) => {
-
-  const { isLogged } = useAuth();
-
+export default function PlayBar({ isOpenAside, setIsOpenAside, setIsOpenLogin, data }: PlayBarProps) {
+  
+  const { isLogged, InsertAudio, DeleteAudio, getAudiosForProfile } = useAuth();
   const { audio, setAudio, isPlaying, setIsPlaying, volume, setVolume, audioRef } =
     useContext(AudioContext);
 
@@ -89,24 +86,42 @@ type PlayBarProps = {
     }
   };
 
-  const handleGustaChange = () => {
+  const handleGustaChange = async () => {
     if(isLogged){
-      setGusta(!gusta);
-      if (audio?.title && audio?.urls.high_mp3) {
-        setList([...list, { 
-          title: audio.title,
-          mp3Url: audio.urls.high_mp3,
-          imageUrl: audio?.channel.urls.logo_image.original 
-        }]);
+      if(audio){
+        if(gusta === false){
+          try {
+            await InsertAudio(audio.id, audio.title, audio.urls.high_mp3, audio.channel.urls.logo_image.original)
+          } catch (error) {
+            console.error('Error adding audio:', error);
+          }
+          setGusta(true);
+
+        //if (audio?.title && audio?.urls.high_mp3) {
+          // setList([...list, { 
+          //   title: audio.title,
+          //   mp3Url: audio.urls.high_mp3,
+          //   imageUrl: audio?.channel.urls.logo_image.original 
+        //  }]);
+        }else{
+          DeleteAudio(audio?.id)
+          setGusta(false)
+        }
       }
     }else{
       setIsOpenLogin(true)
     }
   };
+  
+  useEffect(() => {
+    if (!isLogged){
+      setGusta(false)
+    }
+  }, [isLogged, gusta]);
+
   const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setVolume(Number(event.target.value));
   };
-
   const [temp, setTemp] = useState(volume);
   const handleChangeVolumenState = () => {
     if (volume > 0) {
@@ -157,13 +172,13 @@ type PlayBarProps = {
     }
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     setGusta(false)
     if (audio?.urls?.high_mp3 && list) {
       const exists = list.some(item => item.mp3Url === audio.urls.high_mp3);
       setGusta(exists);
     }
-  }, [audio, list, isLogged]);
+  }, [audio, list, isLogged]);*/
 
   return (
     <div className="componente">
@@ -252,5 +267,3 @@ type PlayBarProps = {
     </div>
   );
 };
-
-export default PlayBar;
